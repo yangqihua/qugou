@@ -1,5 +1,5 @@
 <template>
-<div class="content">
+<div class="content scroll">
   <x-header style="width: 100%; position: absolute; left: 0; top: 0; z-index: 100;">This is the page title.</x-header>
   <div style="position: absolute;top: 46px;bottom: 50px;width: 100%;left: 0;overflow-y: auto">
     <user-info-min :info="userinfo" />
@@ -9,22 +9,23 @@
     </div>
   </div>
 
-  <div id="s-actionBar-container">
-    <div class="action-bar-wrap j-bottom-bar    ">
-      <a class="support cell" href="http://im.m.taobao.com/ww/ad_ww_dialog.htm?item_num_id=524011612556&amp;pds=wwseller%23h%23detail&amp;to_user=saa94LnZt73G7L2iteo%3D">客服</a>
+  <div class="footer">
+    <div style="width: 45%;display: flex;">
+      <div class="footer_item" style="padding-top: 5px;width: 50%;padding-left: 16px;">
+        <i class="icon iconfont icon-shouye112"></i>
+        <div style="margin-top: -3px;">喜欢</div>
 
-      <a class="toshop cell" href="//pg.m.tmall.com">进店</a>
-
-      <a class="addfav cell">收藏</a>
-      <div class="mods-wrap"></div>
-      <div class="trade">
-        <a class="cart " role="button">加入购物车</a>
-        <a class="info" role="button"></a>
-        <a class="buy " role="button">立即购买</a>
+      </div>
+      <div class="footer_item" style="padding-top: 5px;width: 50%;padding-right: 16px;">
+        <i class="icon iconfont icon-icon26"></i>
+        <div style="margin-top: -3px;">分享</div>
       </div>
     </div>
-    <a href="//h5.m.taobao.com/awp/base/cart.htm" class="cart-link"><span>购物车</span></a>
+    <div class="footer_item" style="width: 55%;background:#fe2a43 ">
+      <div style="width: 100%;font-size: 18px;float: left;line-height: 50px;color:#fff">立即购买</div>
+    </div>
   </div>
+
 </div>
 </template>
 
@@ -57,6 +58,44 @@ export default {
 </script>
 
 <style lang="less">
+  @import "../style/mixin.less";
+  .footer {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #fff;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, .16);
+    z-index: 90;
+
+    &_item {
+      display: inline-block;
+      text-align: center;
+      font-size: 11px;
+      color: @color_desc;
+      transition: all .3s ease;
+      /*&:nth-child(1) {*/
+         /*width: 18%;*/
+        /*padding-left: 20px;*/
+      /*}*/
+  /*&:nth-child(2) {*/
+     /*width: 18%;*/
+   /*}*/
+
+
+      &.active {
+         color: @color_active;
+      }
+      i {
+        display: block;
+        font-size: 24px;
+        line-height: 1.2;
+      }
+    }
+  }
   .detail_content{
     li {
       list-style: none;

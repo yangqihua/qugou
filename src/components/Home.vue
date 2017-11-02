@@ -88,6 +88,7 @@
     },
     data () {
       return {
+        pull:null,
         page: 1,
         status: {
           pullupStatus: 'default'

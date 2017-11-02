@@ -188,5 +188,12 @@
   <div id="app-box"></div>
   <%=htmlWebpackPlugin.files.webpackManifest%>
 </body>
+<script type="application/javascript">
+  document.querySelector('body').addEventListener('touchmove', function(e) {
+//    if (!document.querySelector('.scroll').contains(e.target)) {
+      e.preventDefault();
+//    }
+  })
+</script>
 
 </html>
