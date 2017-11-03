@@ -23,7 +23,7 @@
       <div class="good_info_video">
         <div v-for="item in videoList">
           <div>{{item.desc}}</div>
-          <video  style="width: 100%" controls :src="item.link"></video>
+          <video  style="width: 100%;background:#888" controls :src="item.link"></video>
         </div>
       </div>
     </div>
