@@ -20,8 +20,6 @@
       </flexbox-item>
     </flexbox>
 
-    <!--<video id="vdo" style="width: 100%" controls src="https://wsqncdn.miaopai.com/stream/DtgNKNaSdsn~df2NefBbu1kKv8eUI5FKBtS7iw___0_1509418344.mp4?ssig=bb454cd92a093dcb84f4efb1c928f158&time_stamp=1509547390598"></video>-->
-    <!--<video id="vdo" style="width: 100%" controls src="http://gslb.miaopai.com/stream/59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__.mp4?ssig=434174728ab2a1be6848c6e083f5e26a&time_stamp=1509550023250&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__"></video>-->
 
     <div class="cc_tabs">
       <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">

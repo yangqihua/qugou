@@ -3,12 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-siteapp">
   <meta name="format-detection" content="telphone=no, email=no">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+
   <title>趣购</title>
   <style>
     .loading_content_wapper {
@@ -172,9 +174,9 @@
 </head>
 
 <body>
-  <div class="loading_content_wapper">
-    <div class="loading_content">
-      <svg version="1.1" id="svg_loading_content" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<div class="loading_content_wapper">
+  <div class="loading_content">
+    <svg version="1.1" id="svg_loading_content" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
       	 viewBox="-143 74 80 80" style="enable-background:new -143 74 80 80;" xml:space="preserve">
         <polygon id="XMLID_7_" class="st0" points="-102.6,98.1 -108.3,108 -96.8,108 "/>
         <polygon id="XMLID_8_" class="st0" points="-119.4,127 -85.7,127 -89.4,120 -115.7,120 "/>
@@ -183,17 +185,17 @@
         <polygon id="XMLID_11_" class="st0" points="-96.8,108 -108.3,108 -112,114 -93.1,114 "/>
         <polygon id="XMLID_1_" class="st1" points="-88.5,113.7 -75.9,135.5 -129.3,135.5 -102.6,89.3 "/>
       </svg>
-    </div>
   </div>
-  <div id="app-box"></div>
-  <%=htmlWebpackPlugin.files.webpackManifest%>
+</div>
+<div id="app-box"></div>
+<%=htmlWebpackPlugin.files.webpackManifest%>
 </body>
 <script type="application/javascript">
-  document.querySelector('body').addEventListener('touchmove', function(e) {
-//    if (!document.querySelector('.scroll').contains(e.target)) {
-      e.preventDefault();
-//    }
-  })
+  //  document.querySelector('body').addEventListener('touchmove', function(e) {
+  //    if (!document.querySelector('.scroll').contains(e.target)) {
+  //      e.preventDefault();
+  //    }
+  //  })
 </script>
 
 </html>
