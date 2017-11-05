@@ -10,32 +10,45 @@
 </template>
 
 <script>
-import vNav from './Nav.vue'
+  import vNav from './Nav.vue'
 
-export default {
-  name: 'frame',
-  components: { vNav }
-}
+  export default {
+    name: 'frame',
+    components: {vNav}
+  }
 </script>
 
-<style lang="less">
-@import '~vux/src/styles/reset.less';
-@import '~vux/src/styles/1px.less';
+<style lang="less" rel="stylesheet/less">
+  @import '~vux/src/styles/reset.less';
+  @import '~vux/src/styles/1px.less';
 
-.vux-1px-b:after {
-  border-color: #f0f0f0;
-}
+  .vux-1px-b:after {
+    border-color: #f0f0f0;
+  }
 
-.move-enter-active,
-.move-leave-active {
+  .move-enter-active,
+  .move-leave-active {
     transition: all 0.2s ease-in-out;
-}
-.move-enter-active {
+  }
+
+  .move-enter-active {
     transition-delay: 0.2s;
-}
-.move-enter,
-.move-leave-active {
+  }
+
+  .move-enter,
+  .move-leave-active {
     opacity: 0;
     /*transform: translateX(10px);*/
-}
+  }
+
+  .home_content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 52px;
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
 </style>

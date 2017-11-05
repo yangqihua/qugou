@@ -31,45 +31,49 @@
       </tab>
     </div>
 
-    <scroller lock-x use-pullup
-              v-model="status"
-              @on-pullup-loading="pullup"
-              height="-138"
-              ref="scroller">
+    <!--<scroller lock-x use-pullup-->
+    <!--v-model="status"-->
+    <!--@on-pullup-loading="pullup"-->
+    <!--height="-138"-->
+    <!--ref="scroller">-->
 
 
-      <div>
-        <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
-          <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
-                       :style="{background:'url('+img.image+') center center / cover no-repeat'}">
-          </swiper-item>
-        </swiper>
-        <!--<content-nav/>-->
-        <!--<div class="part"></div>-->
+    <div>
+      <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
+        <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
+                     :style="{background:'url('+img.image+') center center / cover no-repeat'}">
+        </swiper-item>
+      </swiper>
+      <scroll :data="data.list" pullup listenScroll @pullup="pullup">
         <div class="content_photo">
           <c-panel :list="data.list"/>
         </div>
-      </div>
+        <div class="loading-wrapper">111</div>
+      </scroll>
+    </div>
 
-      <!--pullup slot { pullupStatus : default , up , down , loading } -->
-      <div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up">
-      <span class="pullup-arrow iconfont" v-show="status.pullupStatus !== 'loading'"
-            :class="{'rotate': status.pullupStatus === 'down'}">&#xe7a8;</span>
-        <span v-show="status.pullupStatus === 'loading'">
-        <load-more tip="努力加载中" class="cc_loadmore"></load-more>
-      </span>
-      </div>
-    </scroller>
+    <!--pullup slot { pullupStatus : default , up , down , loading } -->
+    <!--<div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up">-->
+    <!--<span class="pullup-arrow iconfont" v-show="status.pullupStatus !== 'loading'"-->
+    <!--:class="{'rotate': status.pullupStatus === 'down'}">&#xe7a8;</span>-->
+    <!--<span v-show="status.pullupStatus === 'loading'">-->
+    <!--<load-more tip="努力加载中" class="cc_loadmore"></load-more>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</scroller>-->
+
   </div>
 </template>
 
-<script>
-  import {Tab, TabItem,Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Scroller, LoadMore} from 'vux'
+<script type="text/ecmascript-6">
+  import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Scroller, LoadMore} from 'vux'
   import cPanel from './Panel'
   import ContentNav from './ContentNav'
+  import Scroll from './common/scroll/Scroll'
 
   export default {
     components: {
+      Scroll,
       Tab, TabItem,
       Flexbox,
       FlexboxItem,
@@ -81,12 +85,10 @@
       cPanel,
       ContentNav,
     },
-    activated () {
-      this.$refs.scroller.reset()
-    },
     data () {
       return {
-        pull:null,
+        pulldown: true,
+        pull: null,
         page: 1,
         status: {
           pullupStatus: 'default'
@@ -124,16 +126,15 @@
       onCancel () {
         console.log('on cancel')
       },
+
+
       pullup() {
+        console.log("pullup")
         this.$store.dispatch('getListBy', ++this.page)
       }
     },
     computed: {
       data() {
-        this.$nextTick(() => {
-          this.status.pullupStatus = 'default'
-          this.$refs.scroller.reset()
-        })
         return this.$store.state.base_data
 //        return {
 //          'showbox': [
@@ -169,14 +170,14 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" rel="stylesheet/less">
   @import "../style/mixin.less";
 
-  .cc_tabs{
-    padding-bottom:1px;
-    .vux-tab{
-      height:40px;
-      .vux-tab-item{
+  .cc_tabs {
+    padding-bottom: 1px;
+    .vux-tab {
+      height: 40px;
+      .vux-tab-item {
         font-size: 13px;
         line-height: 40px;
       }
@@ -196,6 +197,7 @@
       }
     }
   }
+
   .cc_loadmore {
     margin: 0 auto 5px !important;
     span {

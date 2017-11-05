@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="less">
-  @import "../style/mixin.less";
+  @import "../../style/mixin.less";
 
   .cc_panel_wapper{
     /*margin-left: -12px;*/
