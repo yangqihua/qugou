@@ -1,6 +1,6 @@
 <template>
 
-  <div>
+  <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll">
     <flexbox :gutter="0" style="background-color: #EFEFF4;">
       <flexbox-item span="60">
         <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
@@ -45,12 +45,12 @@
         </swiper-item>
       </swiper>
       <!--<scroll ref="scroll"-->
-              <!--:data="data.list"-->
-              <!--:pullUpLoad="true"-->
-              <!--@pullingUp="pullup">-->
-        <div class="content_photo mescroll" id="mescroll">
-          <panel :list="data.list"></panel>
-        </div>
+      <!--:data="data.list"-->
+      <!--:pullUpLoad="true"-->
+      <!--@pullingUp="pullup">-->
+      <div class="content_photo mescroll">
+        <panel :list="data.list"></panel>
+      </div>
       <!--</scroll>-->
     </div>
 
@@ -64,14 +64,13 @@
     <!--</div>-->
     <!--</scroller>-->
 
-  </div>
+  </scroll>
 </template>
 
 <script type="text/ecmascript-6">
   import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Scroller, LoadMore} from 'vux'
   import Panel from '../../components/common/Panel'
-  import Scroll from '../../components/scroll/Scroll'
-  import MeScroll from 'mescroll.js'
+  import Scroll from '../../components/mescroll/Scroll'
 
   export default {
     components: {
@@ -128,43 +127,23 @@
       onCancel () {
         console.log('on cancel')
       },
-      pullup(page) {
-        console.log('page.num='+page.num+", page.size="+page.size)
-        this.$store.dispatch('getListBy', page.num)
+      upCallback: function (page) {
+        let self = this;
+        let params = {
+          page: page.num,
+          scb: (curPageData) => {
+            self.$refs.mescroll.endSuccess(curPageData.length);
+          },
+          ecb: (err) => {
+            this.$vux.toast.show({text: err, type: 'warn'})
+            self.$refs.mescroll.endErr();
+          }
+        };
+        this.$store.dispatch('getListBy', params)
+      },
+      btnClick() {
+        alert("点击了去逛逛按钮");
       }
-    },
-    mounted() {
-      //创建MeScroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
-      //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
-      let self = this;
-      self.mescroll = new MeScroll("mescroll", {
-//        down:{use:false},
-        up: {
-          callback: self.pullup, //上拉回调
-          //以下参数可删除,不配置
-          //page:{size:8}, //可配置每页8条数据,默认10
-          toTop:{ //配置回到顶部按钮
-            src : "../res/img/mescroll-totop.png", //默认滚动到1000px显示,可配置offset修改
-            //offset : 1000
-          },
-          empty:{ //配置列表无任何数据的提示
-            warpId:"dataList",
-            icon : "../res/img/mescroll-empty.png" ,
-            tip : "亲,暂无相关数据哦~" ,
-            btntext : "去逛逛 >" ,
-            btnClick : function() {
-              alert("点击了去逛逛按钮");
-            }
-          },
-          offset:200,
-          htmlNodata:'<p class="upwarp-nodata">-- 暂无更多数据 --</p>',
-          scrollbar:{use:true,barClass : "mescroll-bar"},
-
-        }
-      });
-
-      //初始化vue后,显示vue模板布局
-//      document.getElementById("dataList").style.display="block";
     },
     computed: {
       data() {

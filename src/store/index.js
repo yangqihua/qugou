@@ -50,9 +50,16 @@ const actions = {
       hideloadin()
     })
   },
-  getListBy({ commit, state }, page) {
+  getListBy({ commit, state }, param={}) {
+    let page = param.page;
+    let scb = param.scb;
+    let ecb = param.ecb;
     ajax(io_home_list, { page: page }).then(res => $dom(res.body)).then($ => {
-      commit('GET_DATA', { list: state.base_data.list.concat(homelist($))})
+      let newData = homelist($);
+      commit('GET_DATA', { list: state.base_data.list.concat(newData)})
+      scb&&scb(newData);
+    },err=>{
+      ecb&&ecb(err);
     })
   },
   getWorks({ commit }, sel = {}) {
