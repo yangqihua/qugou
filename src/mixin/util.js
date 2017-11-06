@@ -84,7 +84,7 @@ export function homelist($) {
       type: type1 + ' - ' + type2
     })
   })
-  console.log("list:",list);
+  // console.log("list:",list);
   return list
 }
 
