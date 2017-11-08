@@ -5,7 +5,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MeScroll from 'MeScroll.js'
+  import MeScroll from '../../assets/js/mescroll.js'
+//  import MeScroll from 'Mescroll.js'
+
   import totop from '../../assets/img/mescroll-totop.png'
   import empty from '../../assets/img/mescroll-empty.png'
   //创建vue对象
@@ -29,7 +31,7 @@
       //创建Mescroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
       //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       let self = this;
-      this.mescroll = new MeScroll("mescroll", {
+      this.mescroll = new MeScroll("body", {
         down: {use: false},
         up: {
           auto: true,
@@ -74,6 +76,7 @@
       }
     },
     destroyed(){
+      this.mescroll&&this.mescroll.destory();
       // 解决mescroll 返回到顶端的bug
       let toTopDom = document.getElementsByClassName('mescroll-totop');
       if (toTopDom.length > 0) {
@@ -84,8 +87,11 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import '../../../node_modules/mescroll.js/mescroll.min.css';
+  @import '../../assets/css/mescroll.css';
 
+  .mescroll{
+    padding-bottom: 52px;
+  }
   .mescroll-empty {
     .empty-btn {
       color: #fe2a43;

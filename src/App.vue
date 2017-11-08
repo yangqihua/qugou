@@ -2,7 +2,7 @@
   <div id="app">
     <transition name="move">
       <keep-alive :exclude="/.+Detail/">
-        <router-view class="content"></router-view>
+        <router-view></router-view>
       </keep-alive>
     </transition>
   </div>

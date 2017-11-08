@@ -55,15 +55,15 @@ export default {
 @import "../style/mixin.less";
 
 .nav {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
   height: 52px;
   background: #fff;
   overflow: hidden;
   box-shadow: 0 0 15px rgba(0, 0, 0, .16);
-  z-index: 90;
+  z-index: 9999;
 
   &_item {
     display: inline-block;

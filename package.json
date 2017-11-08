@@ -12,7 +12,6 @@
     "test": "npm run unit"
   },
   "dependencies": {
-    "mescroll.js": "^1.2.3",
     "es6-promise": "^4.1.0",
     "fastclick": "^1.0.6",
     "nprogress": "^0.2.0",

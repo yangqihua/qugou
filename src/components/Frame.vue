@@ -42,10 +42,6 @@
   }
 
   .home_content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 52px;
     width: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;

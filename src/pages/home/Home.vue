@@ -1,35 +1,36 @@
 <template>
 
   <div>
-    <flexbox :gutter="0" style="background-color: #EFEFF4;position: static">
-      <flexbox-item span="60">
-        <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
-      </flexbox-item>
-      <flexbox-item>
-        <search
-          @result-click="resultClick"
-          @on-change="getResult"
-          :results="results"
-          v-model="value"
-          position="absolute"
-          auto-scroll-to-top
-          @on-focus="onFocus"
-          @on-cancel="onCancel"
-          @on-submit="onSubmit"
-          ref="search"></search>
-      </flexbox-item>
-    </flexbox>
-
-    <div class="cc_tabs">
-      <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
-        <tab-item selected @on-item-click="onItemClick">精选</tab-item>
-        <tab-item @on-item-click="onItemClick">实用类</tab-item>
-        <tab-item @on-item-click="onItemClick">有趣类</tab-item>
-        <tab-item @on-item-click="onItemClick">冷门类</tab-item>
-        <tab-item @on-item-click="onItemClick">黑科技</tab-item>
-      </tab>
-    </div>
     <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll">
+      <flexbox :gutter="0" style="background-color: #EFEFF4;position: static">
+        <flexbox-item span="60">
+          <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
+        </flexbox-item>
+        <flexbox-item>
+          <search
+            @result-click="resultClick"
+            @on-change="getResult"
+            :results="results"
+            v-model="value"
+            position="absolute"
+            auto-scroll-to-top
+            @on-focus="onFocus"
+            @on-cancel="onCancel"
+            @on-submit="onSubmit"
+            ref="search"></search>
+        </flexbox-item>
+      </flexbox>
+
+      <div class="cc_tabs">
+        <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
+          <tab-item selected @on-item-click="onItemClick">精选</tab-item>
+          <tab-item @on-item-click="onItemClick">实用类</tab-item>
+          <tab-item @on-item-click="onItemClick">有趣类</tab-item>
+          <tab-item @on-item-click="onItemClick">冷门类</tab-item>
+          <tab-item @on-item-click="onItemClick">黑科技</tab-item>
+        </tab>
+      </div>
+
       <div>
         <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
           <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
