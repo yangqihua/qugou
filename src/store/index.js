@@ -23,7 +23,7 @@ import {
 
 
 const state = {
-  base_data: {},
+  base_data: {list:[]},
   works_data: [],
   articles_data: {}
 }

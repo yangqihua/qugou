@@ -1,7 +1,7 @@
 <template>
 
-  <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll">
-    <flexbox :gutter="0" style="background-color: #EFEFF4;">
+  <div>
+    <flexbox :gutter="0" style="background-color: #EFEFF4;position: static">
       <flexbox-item span="60">
         <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
       </flexbox-item>
@@ -20,7 +20,6 @@
       </flexbox-item>
     </flexbox>
 
-
     <div class="cc_tabs">
       <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
         <tab-item selected @on-item-click="onItemClick">精选</tab-item>
@@ -30,41 +29,19 @@
         <tab-item @on-item-click="onItemClick">黑科技</tab-item>
       </tab>
     </div>
-
-    <!--<scroller lock-x use-pullup-->
-    <!--v-model="status"-->
-    <!--@on-pullup-loading="pullup"-->
-    <!--height="-138"-->
-    <!--ref="scroller">-->
-
-
-    <div>
-      <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
-        <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
-                     :style="{background:'url('+img.image+') center center / cover no-repeat'}">
-        </swiper-item>
-      </swiper>
-      <!--<scroll ref="scroll"-->
-      <!--:data="data.list"-->
-      <!--:pullUpLoad="true"-->
-      <!--@pullingUp="pullup">-->
-      <div class="content_photo mescroll">
-        <panel :list="data.list"></panel>
+    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll">
+      <div>
+        <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
+          <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
+                       :style="{background:'url('+img.image+') center center / cover no-repeat'}">
+          </swiper-item>
+        </swiper>
+        <div class="content_photo mescroll">
+          <panel :list="data.list"></panel>
+        </div>
       </div>
-      <!--</scroll>-->
-    </div>
-
-    <!--pullup slot { pullupStatus : default , up , down , loading } -->
-    <!--<div slot="pullup" class="xs-plugin-pullup-container xs-plugin-pullup-up">-->
-    <!--<span class="pullup-arrow iconfont" v-show="status.pullupStatus !== 'loading'"-->
-    <!--:class="{'rotate': status.pullupStatus === 'down'}">&#xe7a8;</span>-->
-    <!--<span v-show="status.pullupStatus === 'loading'">-->
-    <!--<load-more tip="努力加载中" class="cc_loadmore"></load-more>-->
-    <!--</span>-->
-    <!--</div>-->
-    <!--</scroller>-->
-
-  </scroll>
+    </scroll>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
