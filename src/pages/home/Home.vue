@@ -22,13 +22,15 @@
       </flexbox>
 
       <div class="cc_tabs">
-        <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
-          <tab-item selected @on-item-click="onItemClick">精选</tab-item>
-          <tab-item @on-item-click="onItemClick">实用类</tab-item>
-          <tab-item @on-item-click="onItemClick">有趣类</tab-item>
-          <tab-item @on-item-click="onItemClick">冷门类</tab-item>
-          <tab-item @on-item-click="onItemClick">黑科技</tab-item>
-        </tab>
+        <sticky :check-sticky-support="false">
+          <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
+            <tab-item selected @on-item-click="onItemClick">精选</tab-item>
+            <tab-item @on-item-click="onItemClick">实用类</tab-item>
+            <tab-item @on-item-click="onItemClick">有趣类</tab-item>
+            <tab-item @on-item-click="onItemClick">冷门类</tab-item>
+            <tab-item @on-item-click="onItemClick">黑科技</tab-item>
+          </tab>
+        </sticky>
       </div>
 
       <div>
@@ -44,7 +46,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Scroller, LoadMore} from 'vux'
+  import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky} from 'vux'
   import Panel from '../../components/common/Panel'
   import Scroll from '../../components/mescroll/Scroll'
 
@@ -57,8 +59,7 @@
       Search,
       Swiper,
       SwiperItem,
-      Scroller,
-      LoadMore,
+      Sticky,
       Panel,
     },
     data () {
@@ -162,6 +163,7 @@
   @import "../../style/mixin.less";
 
   .cc_tabs {
+    height: 40px;
     padding-bottom: 1px;
     .vux-tab {
       height: 40px;
