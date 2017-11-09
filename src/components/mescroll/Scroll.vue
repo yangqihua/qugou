@@ -6,8 +6,6 @@
 
 <script type="text/ecmascript-6">
   import MeScroll from '../../assets/js/mescroll.js'
-//  import MeScroll from 'Mescroll.js'
-
   import totop from '../../assets/img/mescroll-totop.png'
   import empty from '../../assets/img/mescroll-empty.png'
   //创建vue对象
@@ -44,7 +42,7 @@
           toTop: { //配置回到顶部按钮
             src: totop, //默认滚动到1000px显示,可配置offset修改
             offset: 1000,
-            warpClass:self.toTopClass
+            warpClass: self.toTopClass
           },
           empty: { //配置列表无任何数据的提示
             warpId: "mescroll",
@@ -56,7 +54,7 @@
           warpId: "mescroll",
           htmlNodata: '<p class="upwarp-nodata">-- 暂无更多数据哦~ --</p>',
           scrollbar: {use: true, barClass: "mescroll-bar"},
-          htmlLoading:'<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>',
+          htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>',
         }
       });
     },
@@ -66,11 +64,19 @@
         this.mescroll && this.mescroll.endSuccess(curPageDataLength);
       },
       // (推荐): 后台接口有返回列表的总数据量 totalSize
-      endSuccess(curPageDataLength,totalSize){
-        this.mescroll && this.mescroll.endSuccess(curPageDataLength,totalSize);
+      endSuccess(curPageDataLength, totalSize){
+        this.mescroll && this.mescroll.endSuccess(curPageDataLength, totalSize);
       },
       endErr(){
         this.mescroll && this.mescroll.endErr();
+      },
+      deactivated(){
+        this.mescroll && this.mescroll.deactivated();
+      },
+      activated(){
+        if (!(this.mescroll && this.mescroll.beActivated)) {
+          this.mescroll.activated();
+        }
       },
       btnClick() {
         alert("点击了去逛逛按钮,请具体实现业务逻辑");
@@ -82,12 +88,13 @@
       }
     },
     destroyed(){
-      this.mescroll&&this.mescroll.destory();
-      // 解决mescroll 返回到顶端的bug
-      let toTopDom = document.getElementsByClassName('mescroll-totop');
-      if (toTopDom.length > 0) {
-        document.body.removeChild(toTopDom[0]);
-      }
+      this.destroy();
+    },
+    deactivated(){
+      this.deactivated();
+    },
+    activated(){
+      this.activated();
     }
   };
 </script>
@@ -95,13 +102,14 @@
 <style lang="less" rel="stylesheet/less">
   @import '../../assets/css/mescroll.css';
 
-  .mescroll{
+  .mescroll {
     padding-bottom: 52px;
   }
+
   .mescroll-empty {
     .empty-btn {
       color: #fe2a43;
-      border:1px solid #fe2a43;
+      border: 1px solid #fe2a43;
     }
   }
 </style>

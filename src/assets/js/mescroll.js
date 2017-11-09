@@ -7,6 +7,7 @@
  * 因为没有闭包限制作用域,所以能解决某些情况下引用mescroll.min.js报'Mescroll' undefined的问题
  */
 function MeScroll(a, b) {
+  this.beActivated = true;
   this.isScrollBody = (!a || a == "body");
   this.scrollDom = this.isScrollBody ? document.body: document.getElementById(a);
   this.options = b || {};
@@ -552,7 +553,7 @@ MeScroll.prototype.showTopBtn = function() {
       a.toTopBtn.onclick = function() {
         a.scrollTo(0, a.optUp.toTop.duration)
       };
-      document.body.appendChild(a.toTopBtn)
+      a.upparent.appendChild(a.toTopBtn)
     }
     a.toTopBtn.classList.remove(b.hideClass);
     a.toTopBtn.classList.add(b.showClass)
@@ -632,8 +633,9 @@ MeScroll.prototype.setScrollTop = function(a) {
     this.scrollDom.scrollTop = a
   }
 };
-MeScroll.prototype.destroy = function() {
+MeScroll.prototype.destory = function() {
   let a = this;
+  a.isInUse = false;
   if (a.optDown.use) {
     a.scrollDom.removeEventListener("touchstart", a.touchstartEvent);
     a.scrollDom.removeEventListener("mousedown", a.touchstartEvent);
@@ -651,6 +653,48 @@ MeScroll.prototype.destroy = function() {
       a.scrollDom.removeEventListener("scroll", a.scrollEvent)
     }
     a.upparent && a.upparent.removeChild(a.upwarp)
+  }
+};
+
+MeScroll.prototype.deactivated = function() {
+  let a = this;
+  a.beActivated = false;
+  if (a.optDown.use) {
+    a.scrollDom.removeEventListener("touchstart", a.touchstartEvent);
+    a.scrollDom.removeEventListener("mousedown", a.touchstartEvent);
+    a.scrollDom.removeEventListener("touchmove", a.touchmoveEvent);
+    a.scrollDom.removeEventListener("mousemove", a.touchmoveEvent);
+    a.scrollDom.removeEventListener("touchend", a.touchendEvent);
+    a.scrollDom.removeEventListener("mouseup", a.touchendEvent);
+    a.scrollDom.removeEventListener("mouseleave", a.touchendEvent);
+  }
+  if (a.optUp.use) {
+    if (a.isScrollBody) {
+      window.removeEventListener("scroll", a.scrollEvent)
+    } else {
+      a.scrollDom.removeEventListener("scroll", a.scrollEvent)
+    }
+  }
+};
+
+MeScroll.prototype.activated = function() {
+  let a = this;
+  a.beActivated = true;
+  if (a.optDown.use) {
+    a.scrollDom.addEventListener("touchstart", a.touchstartEvent);
+    a.scrollDom.addEventListener("mousedown", a.touchstartEvent);
+    a.scrollDom.addEventListener("touchmove", a.touchmoveEvent);
+    a.scrollDom.addEventListener("mousemove", a.touchmoveEvent);
+    a.scrollDom.addEventListener("touchend", a.touchendEvent);
+    a.scrollDom.addEventListener("mouseup", a.touchendEvent);
+    a.scrollDom.addEventListener("mouseleave", a.touchendEvent);
+  }
+  if (a.optUp.use) {
+    if (a.isScrollBody) {
+      window.addEventListener("scroll", a.scrollEvent)
+    } else {
+      a.scrollDom.addEventListener("scroll", a.scrollEvent)
+    }
   }
 };
 
