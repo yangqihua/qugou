@@ -4,17 +4,42 @@
 * {
   margin: 0;
   padding: 0;
-  -webkit-touch-callout:none;
-  -webkit-user-select:none;
-  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-body,
-html {
+
+body, html {
   width: 100%;
   height: 100%;
   -webkit-overflow-scrolling: touch;
 }
 
+//覆盖vux的header
+.vux-header {
+  z-index: @big_index;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: @color_white_10;
+  padding: 2px 0;
+  border-bottom: 1px solid @color_gray_2;
+  .vux-header-left {
+    .vux-header-back {
+      color: @color_black_2;
+    }
+    .left-arrow {
+      &:before {
+        border-left: 1px solid @color_black_2;
+        border-top: 1px solid @color_black_2;
+      }
+    }
+  }
+  .vux-header-title {
+    color: @color_red_2;
+  }
+}
 
 .image {
   width: 100%;
@@ -35,5 +60,34 @@ html {
 .loading_content_wapper.in {
   z-index: 80;
 }
+
+.ellipsis_text_1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.ellipsis_text_2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.ellipsis_text_3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.ellipsis_text_4 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
 
 

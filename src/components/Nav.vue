@@ -29,19 +29,19 @@ export default {
         },
         {
           ic: 'icon-icon3',
-          hf: 'articles',
+          hf: 'recommend',
           tit: '每周推荐',
           exa: false
         },
         {
           ic: 'icon-shouye1126',
-          hf: '/works',
+          hf: '/top',
           tit: '榜单',
           exa: false
         },
         {
           ic: 'icon-shouye114',
-          hf: 'user',
+          hf: 'me',
           tit: '我的',
           exa: false
         }

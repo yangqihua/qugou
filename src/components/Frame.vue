@@ -44,7 +44,5 @@
   .home_content {
     width: 100%;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    overflow-scrolling: touch;
   }
 </style>

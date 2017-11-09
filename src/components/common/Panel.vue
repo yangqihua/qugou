@@ -38,7 +38,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style scoped lang="less" rel="stylesheet/less">
   @import "../../style/mixin.less";
 
   .cc_panel_wapper{

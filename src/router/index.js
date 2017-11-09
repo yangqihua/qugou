@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../pages/home/Home.vue'
-import Works from '@/components/Works'
 import WorkDetail from '@/components/WorkDetail'
-import Articles from '@/components/Articles'
 import ArticleDetail from '@/components/ArticleDetail'
-import User from '@/components/User'
 import Search from '@/components/Search'
 
-import Frame from '@/components/Frame'
+
+import Frame from '../components/Frame'
+import Home from '../pages/home/Home.vue'
+import Recommend from '../pages/home/Recommend.vue'
+import Top from '../pages/home/Top.vue'
+import Me from '../pages/home/Me.vue'
 
 Vue.use(Router)
 
@@ -25,19 +26,19 @@ export default new Router({
           component: Home
         },
         {
-          path: '/works',
-          name: 'Works',
-          component: Works
+          path: '/recommend',
+          name: 'Recommend',
+          component: Recommend
         },
         {
-          path: '/articles',
-          name: 'Articles',
-          component: Articles
+          path: '/top',
+          name: 'Top',
+          component: Top
         },
         {
-          path: '/user',
-          name: 'User',
-          component: User
+          path: '/me',
+          name: 'Me',
+          component: Me
         },
       ]
     },
