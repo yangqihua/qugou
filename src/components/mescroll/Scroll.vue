@@ -21,6 +21,10 @@
         type: Function,
         default: null
       },
+      toTopClass: {
+        type: String,
+        default: 'home-mescroll-totop'
+      },
     },
     data() {
       return {
@@ -31,7 +35,7 @@
       //创建Mescroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
       //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       let self = this;
-      this.mescroll = new MeScroll("body", {
+      this.mescroll = new MeScroll('body', {
         down: {use: false},
         up: {
           auto: true,
@@ -39,7 +43,8 @@
           page: {size: 10}, //可配置每页8条数据,默认10
           toTop: { //配置回到顶部按钮
             src: totop, //默认滚动到1000px显示,可配置offset修改
-            offset: 1000
+            offset: 1000,
+            warpClass:self.toTopClass
           },
           empty: { //配置列表无任何数据的提示
             warpId: "mescroll",
@@ -48,9 +53,10 @@
             btntext: "去逛逛~",
             btnClick: self.emptyDataBtnClick || self.btnClick,
           },
+          warpId: "mescroll",
           htmlNodata: '<p class="upwarp-nodata">-- 暂无更多数据哦~ --</p>',
           scrollbar: {use: true, barClass: "mescroll-bar"},
-          htmlLoading:'<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>'
+          htmlLoading:'<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>',
         }
       });
     },

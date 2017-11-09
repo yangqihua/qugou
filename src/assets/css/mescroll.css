@@ -3,10 +3,10 @@
  * version 1.2.3
  * 2017-10-17
  * author: wenju < mescroll@qq.com > 文举
- * 
+ *
  * 官网:	http://www.mescroll.com
  * 文档:	https://github.com/mescroll/mescroll.git
- * 动态:	https://github.com/mescroll/mescroll-versions 
+ * 动态:	https://github.com/mescroll/mescroll-versions
  */
 html,body {
 	height: 100%
@@ -132,14 +132,25 @@ body {
 }
 
 .mescroll-totop {
-	z-index: 9990;
+	z-index: 9999;
 	position: fixed;
-	right: 10px;
+	right: 12px;
 	bottom: 30px;
 	width: 36px;
 	height: 36px;
 	border-radius: 50%;
 	opacity: 0
+}
+
+.home-mescroll-totop {
+  z-index: 9999;
+  position: fixed;
+  right: 12px;
+  bottom: 82px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  opacity: 0
 }
 
 .mescroll-fade-in {

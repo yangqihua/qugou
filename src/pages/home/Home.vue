@@ -37,9 +37,7 @@
                        :style="{background:'url('+img.image+') center center / cover no-repeat'}">
           </swiper-item>
         </swiper>
-        <div class="content_photo mescroll">
-          <panel :list="data.list"></panel>
-        </div>
+        <panel :list="data.list"></panel>
       </div>
     </scroll>
   </div>
