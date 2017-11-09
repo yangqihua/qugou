@@ -22,7 +22,7 @@
       </flexbox>
 
       <div class="cc_tabs">
-        <sticky :check-sticky-support="false">
+        <sticky :check-sticky-support="false" ref="sticky" class="sticky">
           <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
             <tab-item selected @on-item-click="onItemClick">精选</tab-item>
             <tab-item @on-item-click="onItemClick">实用类</tab-item>
@@ -67,7 +67,22 @@
         results: [],
         value: '',
         mescroll: null,
+
+        offset:0,
       }
+    },
+    mounted(){
+    	let sticky = document.querySelector('.sticky');
+    	console.log('sticky:',sticky)
+//    	window.scrollTop = 0;
+
+
+      console.log("<p>Browser:" + navigator.userAgent + "</p >" +
+        "<p>offsetParent:" + sticky.offsetParent.tagName + "</p >" +
+        "<p>offsetWidth:" + sticky.offsetWidth + "</p >" +
+        "<p>offsetHeight:"+sticky.offsetHeight+"</p >"+
+        "<p>offsetLeft:"+sticky.offsetLeft+"</p >"+
+        "<p>offsetTop:"+sticky.offsetTop+"</p >");
     },
 
     methods: {

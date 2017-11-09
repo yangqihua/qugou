@@ -75,6 +75,7 @@
         this.mescroll && this.mescroll.endErr();
       },
       deactivated(){
+        this.mescroll.scrollTo(0, 0);
         this.mescroll && this.mescroll.deactivated();
       },
       activated(){
@@ -92,6 +93,7 @@
       }
     },
     destroyed(){
+      this.mescroll.scrollTo(0, 0);
       this.mescroll &&this.mescroll.destroy();
     },
     deactivated(){

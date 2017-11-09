@@ -50,7 +50,6 @@
     },
     computed: {
       content() {
-        console.log('this.$store.state.articles_data:', this.$store.state.articles_data)
         return this.$store.state.articles_data.list
       }
     },
