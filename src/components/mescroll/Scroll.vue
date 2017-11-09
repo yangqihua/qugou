@@ -1,5 +1,5 @@
 <template>
-  <div id="mescroll" class="mescroll">
+  <div>
     <slot></slot>
   </div>
 </template>
@@ -23,6 +23,10 @@
         type: String,
         default: 'home-mescroll-totop'
       },
+      warpId: {
+        type: String,
+        default: 'mescroll'
+      },
     },
     data() {
       return {
@@ -45,14 +49,14 @@
             warpClass: self.toTopClass
           },
           empty: { //配置列表无任何数据的提示
-            warpId: "mescroll",
+            warpId: self.warpId,
             icon: empty,
             tip: "暂无相关数据哦~",
             btntext: "去逛逛~",
             btnClick: self.emptyDataBtnClick || self.btnClick,
           },
-          warpId: "mescroll",
-          htmlNodata: '<p class="upwarp-nodata">-- 暂无更多数据哦~ --</p>',
+          warpId: self.warpId,
+          htmlNodata: '<p class="upwarp-nodata">暂无更多数据哦~</p>',
           scrollbar: {use: true, barClass: "mescroll-bar"},
           htmlLoading: '<p class="upwarp-progress mescroll-rotate"></p><p class="upwarp-tip">加载中..</p>',
         }
@@ -101,10 +105,6 @@
 
 <style lang="less" rel="stylesheet/less">
   @import '../../assets/css/mescroll.css';
-
-  .mescroll {
-    padding-bottom: 52px;
-  }
 
   .mescroll-empty {
     .empty-btn {

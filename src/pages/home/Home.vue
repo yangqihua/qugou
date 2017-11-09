@@ -1,8 +1,8 @@
 <template>
 
   <div>
-    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll">
-      <flexbox :gutter="0" style="background-color: #EFEFF4;position: static">
+    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="index_scroll" id="index_scroll">
+      <flexbox :gutter="0" style="background-color: #EFEFF4;">
         <flexbox-item span="60">
           <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
         </flexbox-item>
@@ -64,12 +64,6 @@
     },
     data () {
       return {
-        pulldown: true,
-        pull: null,
-        page: 1,
-        status: {
-          pullupStatus: 'default'
-        },
         results: [],
         value: '',
         mescroll: null,
@@ -105,15 +99,14 @@
         console.log('on cancel')
       },
       upCallback: function (page) {
-        let self = this;
         let params = {
           page: page.num,
           scb: (curPageData) => {
-            self.$refs.mescroll.endSuccess(curPageData.length);
+            this.$refs.mescroll.endSuccess(curPageData.length);
           },
           ecb: (err) => {
             this.$vux.toast.show({text: err, type: 'warn'})
-            self.$refs.mescroll.endErr();
+            this.$refs.mescroll.endErr();
           }
         };
         this.$store.dispatch('getListBy', params)
@@ -159,9 +152,11 @@
   }
 </script>
 
-<style lang="less" rel="stylesheet/less">
+<style scoped lang="less" rel="stylesheet/less">
   @import "../../style/mixin.less";
-
+  #index_scroll {
+    padding: 0 0 52px 0;
+  }
   .cc_tabs {
     height: 40px;
     padding-bottom: 1px;

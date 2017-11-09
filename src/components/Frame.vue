@@ -2,7 +2,7 @@
   <div id="frame">
     <transition name="move">
       <keep-alive>
-        <router-view class="home_content"></router-view>
+        <router-view></router-view>
       </keep-alive>
     </transition>
     <v-nav></v-nav>
@@ -41,8 +41,5 @@
     /*!*transform: translateX(10px);*!*/
   /*}*/
 
-  .home_content {
-    width: 100%;
-    overflow-y: auto;
-  }
+
 </style>

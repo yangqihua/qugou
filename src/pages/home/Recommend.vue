@@ -1,51 +1,71 @@
 <template>
   <div>
-    <x-header class="header" :left-options="{showBack: false}">每周推荐</x-header>
-    <div class="recommend_list">
-      <div class="recommend_layer vux-1px-b" v-for="(item, index) in content" :key="index"
-           @click.prevent.stop="jmp(item.link)">
+    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="recommend_scroll" id="recommend_scroll">
+      <x-header class="header" :left-options="{showBack: false}">每周推荐</x-header>
+      <div class="recommend_list">
+        <div class="recommend_layer vux-1px-b" v-for="(item, index) in content" :key="index"
+             @click.prevent.stop="jmp(item.link)">
 
-        <div class="recommend_layer_info">
-          <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
-          <p class="ellipsis_text_3 desc">{{item.desc}}</p>
-        </div>
+          <div class="recommend_layer_info">
+            <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
+            <p class="ellipsis_text_3 desc">{{item.desc}}</p>
+          </div>
 
-        <div class="recommend_layer_img">
-          <img v-lazy="item.image" alt="缩略图" class="image">
+          <div class="recommend_layer_img">
+            <img v-lazy="item.image" alt="缩略图" class="image">
+          </div>
         </div>
       </div>
-    </div>
+    </scroll>
   </div>
 </template>
 
 <script>
   import {XHeader} from 'vux'
+  import Scroll from '../../components/mescroll/Scroll'
   export default {
-    components: {XHeader},
-    created() {
-      this.$store.dispatch('getArticles')
-    },
-    computed: {
-      content() {
-        return this.$store.state.articles_data
+    components: {XHeader, Scroll},
+    data () {
+      return {
+        page: 0,
       }
     },
     methods: {
-      jmp(link) {
-        this.$router.push(link)
+      upCallback: function (page) {
+        let params = {
+          page: page.num,
+          scb: (curPageData) => {
+            this.$refs.mescroll.endSuccess(curPageData.length);
+          },
+          ecb: (err) => {
+            this.$vux.toast.show({text: err, type: 'warn'})
+            this.$refs.mescroll.endErr();
+          }
+        };
+        this.$store.dispatch('getArticles', params)
+      },
+      btnClick() {
+        alert("点击了去逛逛按钮");
       }
     },
-    data () {
-      return {}
-    }
+    computed: {
+      content() {
+        console.log('this.$store.state.articles_data:', this.$store.state.articles_data)
+        return this.$store.state.articles_data.list
+      }
+    },
+
+    created() {
+    },
   }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
   @import "../../style/mixin.less";
-
-  .recommend_list {
+  #recommend_scroll {
     padding: 45px 0 52px 0;
+  }
+  .recommend_list {
     .recommend_layer {
       display: flex;
       padding: 10px;

@@ -25,7 +25,7 @@ import {
 const state = {
   base_data: {list:[]},
   works_data: [],
-  articles_data: {}
+  articles_data: {list:[]}
 }
 
 const mutations = {
@@ -36,15 +36,17 @@ const mutations = {
     state.works_data = state.works_data.concat(payload)
   },
   GET_ARTICLES(state, payload) {
-    state.articles_data = payload
+    state.articles_data.list = state.articles_data.list.concat(payload)
   }
 }
 
 const actions = {
   getData({ commit }) {
+    // hideloadin();
     ajax(io_base).then(res => $dom(res.body)).then($ => {
       commit('GET_DATA', {
-        list: homelist($),
+        // list: homelist($),
+        list: [],
         showbox: showbox($)
       })
       hideloadin()
@@ -69,11 +71,18 @@ const actions = {
       commit('GET_WORKS', homelist($))
     })
   },
-  getArticles({ commit }, sel = {}) {
-    NProgress.start()
-    ajax(io_articles, sel).then(res => $dom(res.body)).then($ => {
-      NProgress.done()
-      commit('GET_ARTICLES', upBox($))
+  getArticles({ commit }, param = {}) {
+    let page = param.page;
+    let scb = param.scb;
+    let ecb = param.ecb;
+    // NProgress.start()
+    ajax(io_articles, { page: page }).then(res => $dom(res.body)).then($ => {
+      // NProgress.done()
+      let newData = upBox($)
+      commit('GET_ARTICLES', newData)
+      scb&&scb(newData);
+    },err=>{
+      ecb&&ecb(err);
     })
   }
 }
