@@ -88,7 +88,7 @@
       }
     },
     destroyed(){
-      this.destroy();
+      this.mescroll &&this.mescroll.destroy();
     },
     deactivated(){
       this.deactivated();
