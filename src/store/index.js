@@ -64,11 +64,19 @@ const actions = {
       ecb&&ecb(err);
     })
   },
-  getWorks({ commit }, sel = {}) {
-    NProgress.set(0.4)
-    ajax(io_works, sel).then(res => $dom(res.body)).then($ => {
-      NProgress.done()
-      commit('GET_WORKS', homelist($))
+  getWorks({ commit }, param = {}) {
+    let page = param.page;
+    let scb = param.scb;
+    let ecb = param.ecb;
+    // NProgress.set(0.4)
+    ajax(io_works, { page: page }).then(res => $dom(res.body)).then($ => {
+      // NProgress.done()
+      let newData = homelist($);
+      console.log('newData:',newData);
+      commit('GET_WORKS', newData)
+      scb&&scb(newData);
+    },err=>{
+      ecb&&ecb(err);
     })
   },
   getArticles({ commit }, param = {}) {
