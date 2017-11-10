@@ -1,10 +1,10 @@
 <template>
   <div id="frame">
-    <transition name="move">
+    <!--<transition name="move">-->
       <keep-alive>
         <router-view></router-view>
       </keep-alive>
-    </transition>
+    <!--</transition>-->
     <v-nav></v-nav>
   </div>
 </template>

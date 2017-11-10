@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <transition name="move">
+    <!--<transition name="move">-->
       <!--<keep-alive :exclude="/.+Detail/">-->
         <router-view></router-view>
       <!--</keep-alive>-->
-    </transition>
+    <!--</transition>-->
   </div>
 </template>
 

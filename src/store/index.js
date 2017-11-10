@@ -86,7 +86,13 @@ const actions = {
     // NProgress.start()
     ajax(io_articles, { page: page }).then(res => $dom(res.body)).then($ => {
       // NProgress.done()
-      let newData = {time:'11-0'+page,list:upBox($)}
+      let time = '11-0'+page
+      if(page==1){
+        time = '本周'
+      }else if(page ==2){
+        time = '上周'
+      }
+      let newData = {time:time,list:upBox($)}
       commit('GET_ARTICLES', newData)
       scb&&scb(newData);
     },err=>{

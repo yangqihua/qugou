@@ -50,6 +50,7 @@
     },
     methods: {
       clickAction(menuKey, menuItem){
+      	this.title = menuItem.label
         console.log(menuKey, menuItem)
       },
       goDetails(link) {
