@@ -41,17 +41,14 @@
       return {
         title: '综合榜单',
         showAction: false,
-        ActionMenus: [
-          {label: '<p style="color:#b7bbbf">请选择</p>', type: 'info'},
-          {label: '综合榜单', type: 'primary', value: '1'},
-          {label: '本周榜单', type: 'primary', value: '2'},
-        ],
+        activeAction: '1',
       }
     },
     methods: {
       clickAction(menuKey, menuItem){
-      	this.title = menuItem.label
-        console.log(menuKey, menuItem)
+        let value = menuItem.value
+        this.title = value == '1' ? '综合榜单' : '本周榜单'
+        this.activeAction = menuItem.value
       },
       goDetails(link) {
         this.$router.push(link)
@@ -74,6 +71,19 @@
       }
     },
     computed: {
+      ActionMenus(){
+        let allTop = {label: '<span>综合榜单</span>', type: 'primary', value: '1'}
+        let weekTop = {label: '<span>本周榜单</span>', type: 'primary', value: '2'}
+        if (this.activeAction == '1') {
+          allTop = {label: '<span style="color:red">综合榜单</span>', type: 'primary', value: '1'}
+        } else {
+          weekTop = {label: '<span style="color:red">本周榜单</span>', type: 'primary', value: '2'}
+        }
+        return [
+          {label: '<p style="color:#b7bbbf;text-align: center">请选择</p>', type: 'info'},
+          allTop, weekTop
+        ]
+      },
       content() {
         return this.$store.state.works_data
       }
@@ -104,7 +114,7 @@
   .top_list {
     .top_item {
       margin: 10px;
-      border:1px solid @color_gray_2;
+      border: 1px solid @color_gray_2;
       border-radius: 4px;
       .top_item_img {
         width: 100%;
@@ -124,24 +134,23 @@
           color: @color_black_2;
           font-weight: 400;
         }
-        .sub_info{
-          margin-top:6px ;
+        .sub_info {
+          margin-top: 6px;
           .top_item_info_price {
             padding-right: 25px;
             color: @color_red_2;
           }
-          .top_item_info_like{
+          .top_item_info_like {
             line-height: 25px;
             font-size: 14px;
             padding-left: 25px;
             color: @color_gray_3;
-            .iconfont{
+            .iconfont {
               font-size: 14px;
               margin-right: 2px;
             }
           }
         }
-
 
       }
     }

@@ -4,8 +4,10 @@
       <img class="logo" src="../../assets/vux_logo.png">
       <h1></h1>
     </div>
-    <group title="cell demo">
-      <cell title="Vux" value="Cool" is-link></cell>
+    <group style="margin-top: 50px;">
+      <cell title="我的收藏" is-link @click.native.prevent="click('我的收藏')"></cell>
+      <cell title="我要推荐" is-link @click.native.prevent="click('我要推荐')"></cell>
+      <cell title="关于我们" is-link @click.native.prevent="click('关于我们')"></cell>
     </group>
   </div>
 </template>
@@ -17,6 +19,11 @@
     components: {
       Group,
       Cell
+    },
+    methods:{
+      click(cell){
+    		alert('客官别急，还没做呢，点击了'+cell)
+      }
     },
     mounted() {
 
@@ -35,6 +42,7 @@
 
 <style scoped lang="less" rel="stylesheet/less">
   .vux-demo {
+    margin-top: 20px;
     text-align: center;
   }
 
