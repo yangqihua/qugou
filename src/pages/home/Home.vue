@@ -73,16 +73,6 @@
     },
     mounted(){
     	let sticky = document.querySelector('.sticky');
-    	console.log('sticky:',sticky)
-//    	window.scrollTop = 0;
-
-
-      console.log("<p>Browser:" + navigator.userAgent + "</p >" +
-        "<p>offsetParent:" + sticky.offsetParent.tagName + "</p >" +
-        "<p>offsetWidth:" + sticky.offsetWidth + "</p >" +
-        "<p>offsetHeight:"+sticky.offsetHeight+"</p >"+
-        "<p>offsetLeft:"+sticky.offsetLeft+"</p >"+
-        "<p>offsetTop:"+sticky.offsetTop+"</p >");
     },
 
     methods: {

@@ -25,7 +25,7 @@ import {
 const state = {
   base_data: {list:[]},
   works_data: [],
-  articles_data: {list:[]}
+  articles_data: []
 }
 
 const mutations = {
@@ -36,7 +36,7 @@ const mutations = {
     state.works_data = state.works_data.concat(payload)
   },
   GET_ARTICLES(state, payload) {
-    state.articles_data.list = state.articles_data.list.concat(payload)
+    state.articles_data = state.articles_data.concat(payload)
   }
 }
 
@@ -78,7 +78,9 @@ const actions = {
     // NProgress.start()
     ajax(io_articles, { page: page }).then(res => $dom(res.body)).then($ => {
       // NProgress.done()
-      let newData = upBox($)
+      let newData = {time:'11-0'+page,list:upBox($)}
+      console.log('page:',page)
+      console.table(newData.list)
       commit('GET_ARTICLES', newData)
       scb&&scb(newData);
     },err=>{
