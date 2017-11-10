@@ -79,8 +79,6 @@ const actions = {
     ajax(io_articles, { page: page }).then(res => $dom(res.body)).then($ => {
       // NProgress.done()
       let newData = {time:'11-0'+page,list:upBox($)}
-      console.log('page:',page)
-      console.table(newData.list)
       commit('GET_ARTICLES', newData)
       scb&&scb(newData);
     },err=>{

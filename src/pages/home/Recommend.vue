@@ -33,7 +33,6 @@
     components: {XHeader, Scroll},
     data () {
       return {
-        page: 0,
       }
     },
     methods: {
