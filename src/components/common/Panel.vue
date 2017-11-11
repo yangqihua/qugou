@@ -1,24 +1,22 @@
 <template>
-  <div class="cc_panel_wapper">
-    <div class="cc_panel_detail" v-for="(item, index) in list" :key="index">
-      <div style="background: #fff;border:1px solid #EFEFF4;border-top-left-radius:3px;border-top-right-radius:3px;box-shadow: 1px 1px 1px #EFEFF4;">
-        <div class="cc_panel_detail_image_wapper" @click.prevent.stop="goDetails(item.link)">
+  <div class="panel_wapper">
+    <div class="panel_detail" v-for="(item, index) in list" :key="index">
+      <div class="panel_detail_wrapper">
+        <div class="panel_detail_image_wapper" @click.prevent.stop="goDetails(item.link)">
           <img
             v-lazy="item.image"
             alt="预览图"
             class="image"
-            width="250"
-            height="188">
+            width="100%">
         </div>
-        <div class="cc_panel_detail_info">
-          <div class="title">{{item.title}}</div>
-          <div class="desc">{{item.title}}</div>
+        <div class="panel_detail_info">
+          <div class="title ellipsis_text_1">{{item.title}}</div>
+          <div class="desc ellipsis_text_2">{{item.title}}</div>
           <div class="share">
-            <div>
-              <i class="iconfont icon-icon1"></i> {{item.reqi}}
+            <div class="price">￥{{item.reqi}}
             </div>
-            <div>
-              <i class="iconfont icon-shouye111"></i> {{item.tuijian}}
+            <div class="collection">
+              <i class="iconfont icon-shouye112"></i>{{item.tuijian}}
             </div>
           </div>
         </div>
@@ -28,23 +26,21 @@
 </template>
 
 <script>
-export default {
-  props: [ 'list' ],
-  methods: {
-    goDetails(link) {
-      this.$router.push(link)
+  export default {
+    props: ['list'],
+    methods: {
+      goDetails(link) {
+        this.$router.push(link)
+      }
     }
   }
-}
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
   @import "../../style/mixin.less";
 
-  .cc_panel_wapper{
-    /*margin-left: -12px;*/
+  .panel_wapper {
     padding: 10px;
-    background: #f9f8fb;
     box-sizing: border-box;
     &:after {
       content: "";
@@ -52,8 +48,8 @@ export default {
       clear: both;
     }
 
-    .cc_panel_detail{
-      background: #f9f8fb;
+    .panel_detail {
+      /*background: #f9f8fb;*/
       position: relative;
       width: 50%;
       overflow: hidden;
@@ -64,31 +60,31 @@ export default {
       padding-bottom: 8px;
       box-sizing: border-box;
 
+      .panel_detail_wrapper {
+        border: 1px solid @color_gray_2;
+        border-radius: 3px;
+        /*border-top-right-radius: 3px;*/
+        /*box-shadow: 1px 1px 1px @color_gray_2;*/
+      }
 
       &:nth-child(2n) {
-         padding-left: 4px;
-         /*border-left:4px solid #f9f8fb;*/
+        padding-left: 4px;
+        /*border-left:4px solid #f9f8fb;*/
       }
       &:nth-child(2n+1) {
-         padding-right: 4px;
-         /*border-right:4px solid #f9f8fb;*/
+        padding-right: 4px;
+        /*border-right:4px solid #f9f8fb;*/
       }
 
       &_image_wapper {
-        position: relative;
-        /*margin-bottom: 5px;*/
         width: 100%;
-        padding-top: (250/250)*100%;
         background: @base_ground;
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
 
         .image {
-          position: absolute;
-          left: 0;
-          top: 0;
-          border-top-left-radius: 3px;
-          border-top-right-radius: 3px;
+          border-top-left-radius: 2px;
+          border-top-right-radius: 2px;
           opacity: 0;
           transition: opacity .4s ease;
           &[lazy=loaded] {
@@ -98,30 +94,16 @@ export default {
       }
 
       &_info {
+        margin-top: 12px;
         .title {
           margin: 6px 4px 0 4px;
-
-          display:block;
-          overflow:hidden;
-          word-break:keep-all;
-          white-space:nowrap;
-          text-overflow:ellipsis;
-
           color: @color_tit;
-          font-size: 12px;
+          font-size: 14px;
           line-height: 1.6;
           font-weight: 400;
         }
         .desc {
           margin: 0 4px 0 4px;
-
-          text-overflow: -o-ellipsis-lastline;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-
           color: #999;
           font-size: 12px;
           line-height: 1.5;
@@ -130,19 +112,23 @@ export default {
 
         }
         .share {
-          /*position: absolute;*/
-          /*left: 12px;*/
-          /*bottom: 12px;*/
-          /*padding-right: 4px;*/
           display: flex;
           justify-content: space-between;
-          margin: 6px 4px 4px 4px;
-          color: @color_desc;
-          font-size: 12px;
-          line-height: 1;
-          i {
-            vertical-align: -2px;
+          margin: 8px 4px 4px 4px;
+          line-height: 14px;
+          .price{
+            font-size: 14px;
+            color: @color_red_2;
           }
+          .collection{
+            i {
+              font-size: 13px;
+              margin-right: 2px;
+            }
+            font-size: 13px;
+            color: @color_desc;
+          }
+
         }
       }
     }

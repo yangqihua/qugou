@@ -12,13 +12,13 @@ import 'nprogress/nprogress.css'
 Vue.use(VueLazyload);
 FastClick.attach(document.body);
 
-router.beforeEach((to, from, next) => {
-  NProgress.start();
-  next();
-});
-router.afterEach((to, from) => {
-  NProgress.done();
-});
+// router.beforeEach((to, from, next) => {
+//   NProgress.start();
+//   next();
+// });
+// router.afterEach((to, from) => {
+//   NProgress.done();
+// });
 
 new Vue({
   router,

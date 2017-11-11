@@ -62,10 +62,11 @@ body, html {
 }
 
 .ellipsis_text_1 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
+  display:block;
+  overflow:hidden;
+  word-break:keep-all;
+  white-space:nowrap;
+  text-overflow:ellipsis;
 }
 
 .ellipsis_text_2 {

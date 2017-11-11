@@ -7,21 +7,11 @@
           <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
         </flexbox-item>
         <flexbox-item>
-          <search
-            @result-click="resultClick"
-            @on-change="getResult"
-            :results="results"
-            v-model="value"
-            position="absolute"
-            auto-scroll-to-top
-            @on-focus="onFocus"
-            @on-cancel="onCancel"
-            @on-submit="onSubmit"
-            ref="search"></search>
+          <search @on-focus="onFocus"></search>
         </flexbox-item>
       </flexbox>
 
-      <div class="cc_tabs">
+      <div class="type_tabs">
         <sticky :check-sticky-support="false" ref="sticky" class="sticky">
           <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
             <tab-item selected @on-item-click="onItemClick">精选</tab-item>
@@ -34,7 +24,7 @@
       </div>
 
       <div>
-        <swiper loop auto :aspect-ratio="350/900" dots-class="cc_dots" :show-dots="true" dots-position="center">
+        <swiper loop auto :aspect-ratio="350/900" dots-class="swiper_dots" :show-dots="true" dots-position="right">
           <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
                        :style="{background:'url('+img.image+') center center / cover no-repeat'}">
           </swiper-item>
@@ -64,44 +54,15 @@
     },
     data () {
       return {
-        results: [],
-        value: '',
         mescroll: null,
-
-        offset:0,
       }
     },
-    mounted(){
-    	let sticky = document.querySelector('.sticky');
-    },
-
     methods: {
+      onFocus () {
+        this.$router.push('/search');
+      },
       onItemClick (index) {
         console.log('on item click:', index)
-      },
-      setFocus () {
-        this.$refs.search.setFocus()
-      },
-      resultClick (item) {
-        window.alert('you click the result item: ' + JSON.stringify(item))
-      },
-      getResult (val) {
-        this.results = val ? getResult(this.value) : []
-      },
-      onSubmit () {
-        this.$refs.search.setBlur()
-        this.$vux.toast.show({
-          type: 'text',
-          position: 'top',
-          text: 'on submit'
-        })
-      },
-      onFocus () {
-        console.log('on focus');
-        this.results = getResult(100)
-      },
-      onCancel () {
-        console.log('on cancel')
       },
       upCallback: function (page) {
         let params = {
@@ -145,16 +106,6 @@
 
   }
 
-  function getResult(val) {
-    let rs = []
-    for (let i = 0; i < 20; i++) {
-      rs.push({
-        title: `${val} result: ${i + 1} `,
-        other: i
-      })
-    }
-    return rs
-  }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
@@ -162,7 +113,7 @@
   #index_scroll {
     padding: 0 0 52px 0;
   }
-  .cc_tabs {
+  .type_tabs {
     height: 40px;
     padding-bottom: 1px;
     .vux-tab {
@@ -174,11 +125,7 @@
     }
   }
 
-  .content_photo {
-    background: #fff;
-  }
-
-  .cc_dots {
+  .swiper_dots {
     bottom: 5px !important;
     .vux-icon-dot {
       background-color: rgba(255, 255, 255, .4) !important;
@@ -188,23 +135,4 @@
     }
   }
 
-  .cc_loadmore {
-    margin: 0 auto 5px !important;
-    span {
-      color: @color_desc;
-    }
-  }
-
-  .rotate {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-  }
-
-  .pullup-arrow {
-    display: block;
-    transition: all linear 0.2s;
-    -webkit-transition: all linear 0.2s;
-    color: #666;
-    font-size: 25px;
-  }
 </style>

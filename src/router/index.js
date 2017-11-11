@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import WorkDetail from '@/components/WorkDetail'
 import ArticleDetail from '@/components/ArticleDetail'
-import Search from '@/components/Search'
 
 
 import Frame from '../components/Frame'
@@ -10,6 +9,7 @@ import Home from '../pages/home/Home.vue'
 import Recommend from '../pages/home/Recommend.vue'
 import Top from '../pages/home/Top.vue'
 import Me from '../pages/home/Me.vue'
+import Search from '../pages/details/Search.vue'
 
 Vue.use(Router)
 
@@ -43,6 +43,18 @@ export default new Router({
       ]
     },
 
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    },
+    {
+      path: '*',
+      component: Home
+    },
+
+
+
     // 详情
     {
       path: '/work/:id',
@@ -56,16 +68,7 @@ export default new Router({
       component: ArticleDetail
     },
 
-    {
-      path: '/search',
-      name: 'Search',
-      component: Search
-    },
 
 
-    {
-      path: '*',
-      component: Home
-    }
   ]
 })
