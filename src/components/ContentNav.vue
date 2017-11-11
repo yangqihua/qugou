@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" rel="stylesheet/less">
 @import "../style/mixin.less";
 
 .content_nav {

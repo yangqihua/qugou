@@ -14,9 +14,7 @@
         <div class="top_item" v-for="(item, index) in content" :key="index"
              @click.prevent.stop="goDetails('work/ZMjQ3MjA5MzI=')">
 
-          <div class="top_item_img">
-            <img v-lazy="item.image" alt="缩略图" class="image">
-          </div>
+          <div class="top_item_img" :style="backgroundImg(item.image)"></div>
 
           <div class="top_item_info">
             <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
@@ -45,6 +43,12 @@
       }
     },
     methods: {
+      backgroundImg(img){
+      	console.log('img',img)
+      	return {
+          backgroundImage:'url('+img+')'
+        }
+      },
       clickAction(menuKey, menuItem){
         let value = menuItem.value
         this.title = value == '1' ? '综合榜单' : '本周榜单'
@@ -118,14 +122,18 @@
       border-radius: 4px;
       .top_item_img {
         width: 100%;
-        vertical-align: top;
-        .image {
-          width: 100%;
-          border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        }
+        height: 0;
+        padding-bottom: 62%;
+        overflow: hidden;
+        background: no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        background-size: cover;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
       }
       .top_item_info {
+        margin-top: 6px;
         text-align: center;
         padding-right: 10px;
 
@@ -135,7 +143,7 @@
           font-weight: 400;
         }
         .sub_info {
-          margin-top: 6px;
+          margin-top: 4px;
           .top_item_info_price {
             padding-right: 25px;
             color: @color_red_2;
@@ -151,7 +159,6 @@
             }
           }
         }
-
       }
     }
   }
