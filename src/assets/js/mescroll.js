@@ -633,7 +633,7 @@ MeScroll.prototype.setScrollTop = function(a) {
     this.scrollDom.scrollTop = a
   }
 };
-MeScroll.prototype.destroy = function() {
+MeScroll.prototype.destory = function() {
   let a = this;
   a.isInUse = false;
   if (a.optDown.use) {

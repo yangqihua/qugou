@@ -23,12 +23,16 @@ import {
 
 
 const state = {
+  search_data: {list:[]},
   base_data: {list:[]},
   works_data: [],
   articles_data: []
 }
 
 const mutations = {
+  GET_SEARCH_DATA(state, payload) {
+    state.search_data = Object.assign({}, state.search_data, payload)
+  },
   GET_DATA(state, payload) {
     state.base_data = Object.assign({}, state.base_data, payload)
   },
@@ -37,10 +41,16 @@ const mutations = {
   },
   GET_ARTICLES(state, payload) {
     state.articles_data = state.articles_data.concat(payload)
-  }
+  },
+  SET_EMPTY_DATA(state, payload) {
+    state.base_data.list = [];
+  },
 }
 
 const actions = {
+  setDataEmpty({ commit, state }) {
+    commit('SET_EMPTY_DATA');
+  },
   getData({ commit }) {
     // hideloadin();
     ajax(io_base).then(res => $dom(res.body)).then($ => {
@@ -59,6 +69,18 @@ const actions = {
     ajax(io_home_list, { page: page }).then(res => $dom(res.body)).then($ => {
       let newData = homelist($);
       commit('GET_DATA', { list: state.base_data.list.concat(newData)})
+      scb&&scb(newData);
+    },err=>{
+      ecb&&ecb(err);
+    })
+  },
+  getSearchData({ commit, state }, param={}) {
+    let page = param.page;
+    let scb = param.scb;
+    let ecb = param.ecb;
+    ajax(io_home_list, { page: page }).then(res => $dom(res.body)).then($ => {
+      let newData = homelist($);
+      commit('GET_SEARCH_DATA', { list: state.search_data.list.concat(newData)})
       scb&&scb(newData);
     },err=>{
       ecb&&ecb(err);
