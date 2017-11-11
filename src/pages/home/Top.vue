@@ -4,7 +4,7 @@
             id="top_scroll">
       <x-header class="header" :left-options="{showBack: false}">
         {{title}}
-        <i class="icon iconfont icon-2" :class="{active:showAction}" slot="right"
+        <i class="icon iconfont icon-icon" :class="{active:showAction}" slot="right"
            @click.stop.prevent="showAction=!showAction"></i>
       </x-header>
       <actionsheet v-model="showAction" :menus="ActionMenus" theme="android" @on-click-menu="clickAction">
@@ -18,7 +18,7 @@
 
           <div class="top_item_info">
             <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
-            <div class="sub_info" style="display: flex;justify-content: center;">
+            <div class="sub_info">
               <p class="top_item_info_price">￥{{item.reqi}}</p>
               <p class="top_item_info_like"><i class="icon iconfont icon-shouye112"></i>{{item.tuijian}}</p>
             </div>
@@ -44,10 +44,7 @@
     },
     methods: {
       backgroundImg(img){
-      	console.log('img',img)
-      	return {
-          backgroundImage:'url('+img+')'
-        }
+        return {backgroundImage: 'url(' + img + ')'}
       },
       clickAction(menuKey, menuItem){
         let value = menuItem.value
@@ -144,6 +141,8 @@
         }
         .sub_info {
           margin-top: 4px;
+          display: flex;
+          justify-content: center;
           .top_item_info_price {
             padding-right: 25px;
             color: @color_red_2;
