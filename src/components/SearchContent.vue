@@ -1,28 +1,39 @@
 <template>
   <div class="search_content">
-    <div class="wel_label"><i class="icon iconfont icon-icon27"></i>大家都在搜</div>
-    <ul class="wel_value">
-      <li class="wel_value_item" v-for="(li, index) in navList" :key="index" @click.stop.prevent="searchKey(li.label)">
-        {{li.label}}
-      </li>
-    </ul>
-
-    <div class="part"></div>
-    <group>
-      <div slot="title" class="weui-cells__title search_value_title">
-        <div><i class="icon iconfont icon-icon36 value_i"></i>我搜过的</div>
-        <div><i class="icon iconfont icon-icon39" style="font-size: 18px;padding: 8px 4px 8px 8px;"
-                @click.stop.prevent="clearAllHistory"></i></div>
+    <div v-if="searchValueEmpty">
+      <div v-show="hotList.length">
+        <div class="wel_label"><i class="icon iconfont icon-icon27"></i>大家都在搜</div>
+        <ul class="wel_value">
+          <li class="wel_value_item" v-for="(li, index) in hotList" :key="index"
+              @click.stop.prevent="searchKey(li.label)">
+            {{li.label}}
+          </li>
+        </ul>
       </div>
-      <cell v-for="(li, index) in valueList" :key="index">
-        <i class="icon iconfont icon-shouye1143" style="padding: 8px 5px 8px 8px;"
-           @click.stop.prevent="clearHistory(li.label)"></i>
-        <div slot="title" style="color:#3b333b;font-size: 13px;" @click.stop.prevent="searchKey(li.label)"><i
-          class="icon iconfont icon-icon1 value_i"></i>{{li.label}}
-        </div>
-      </cell>
-    </group>
 
+      <div v-show="historyList.length">
+        <div class="part"></div>
+        <group>
+          <div slot="title" class="weui-cells__title search_value_title">
+            <div><i class="icon iconfont icon-icon36 value_i"></i>我搜过的</div>
+            <div><i class="icon iconfont icon-icon39" style="font-size: 18px;padding: 8px 4px 8px 8px;"
+                    @click.stop.prevent="clearAllHistory"></i></div>
+          </div>
+          <cell v-for="(li, index) in historyList" :key="index">
+            <i class="icon iconfont icon-shouye1143" style="padding: 8px 5px 8px 8px;"
+               @click.stop.prevent="clearHistory(li.label)"></i>
+            <div slot="title" style="color:#3b333b;font-size: 13px;" @click.stop.prevent="searchKey(li.label)"><i
+              class="icon iconfont icon-icon1 value_i"></i>{{li.label}}
+            </div>
+          </cell>
+        </group>
+      </div>
+    </div>
+    <div v-else>
+      <div class="search_result" @click.stop.prevent="searchKey(searchValue)"><i
+        class="icon iconfont icon-icon1 value_i"></i>查找 “{{searchValue}}”
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,28 +41,27 @@
   import {getViewportSize} from '../mixin/util'
   import {Group, Cell} from 'vux'
   export default {
-    components: {
-      Group,
-      Cell
+    components: {Group, Cell},
+    props: {
+      searchValue: {
+        type: String,
+        default: ''
+      },
+      hotList: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
+      historyList: {
+        type: Array,
+        default: function () {
+          return []
+        }
+      },
     },
     data() {
       return {
-        navList: [
-          {label: '黑科技', weight: 10},
-          {label: '加湿器', weight: 9},
-          {label: '搞怪', weight: 8},
-          {label: '存钱罐', weight: 8},
-          {label: '无人机', weight: 8},
-          {label: '睡眠香水人机', weight: 8},
-          {label: '睡眠香水', weight: 8},
-        ],
-        valueList: [
-          {label: '黑科技', time: '09:23'},
-          {label: '加湿器', time: '08:23'},
-          {label: '搞怪', time: '08:20'},
-          {label: '存钱罐', time: '08:10'},
-          {label: '无人机', time: '08:01'},
-        ]
       }
     },
     methods: {
@@ -63,6 +73,15 @@
       },
       searchKey(label){
         alert('搜索：' + label);
+      }
+    },
+    computed: {
+      searchValueEmpty(){
+      	if(!this.searchValue){
+          return true
+        }
+        let empty = !this.searchValue.trim();
+      	return empty
       }
     },
     mounted(){
@@ -78,7 +97,6 @@
   @import "../style/mixin.less";
 
   .search_content {
-
     font-size: 13px;
     .wel_label {
       margin: 8px 0 0 12px;
@@ -101,6 +119,23 @@
           background-color: @color_gray_1_5;
           color: @color_red_2
         }
+      }
+    }
+    .search_result {
+      color: #3b333b;
+      font-size: 13px;
+      padding: 8px 12px;
+      &:after {
+        position: absolute;
+        left: 0;
+        top: 37px;
+        right: 0;
+        content: '';
+        height: 1px;
+        border-bottom: 1px solid #D9D9D9;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
       }
     }
     .search_value_title {

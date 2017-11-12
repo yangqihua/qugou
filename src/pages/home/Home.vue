@@ -10,14 +10,14 @@
         <flexbox-item>
           <search @result-click="resultClick"
                   @on-change="getResult"
-                  v-model="value"
+                  v-model="searchValue"
                   position="fixed"
                   auto-scroll-to-top
                   @on-focus="onFocus"
                   @on-cancel="onCancel"
                   @on-submit="onSubmit"
                   placeholder="大家都在搜：黑科技">
-            <search-content></search-content>
+            <search-content :searchValue="searchValue" :hotList="hotList" :historyList="historyList"></search-content>
           </search>
         </flexbox-item>
       </flexbox>
@@ -60,10 +60,26 @@
     components: {Scroll, SearchContent, Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky, Panel,},
     data () {
       return {
-        isSearch:false,
+        isSearch: false,
         mescroll: null,
         results: [],
-        value: null,
+        searchValue: '',
+        hotList: [
+          {label: '黑科技', weight: 10},
+          {label: '加湿器', weight: 9},
+          {label: '搞怪', weight: 8},
+          {label: '存钱罐', weight: 8},
+          {label: '无人机', weight: 8},
+          {label: '睡眠香水人机', weight: 8},
+          {label: '睡眠香水', weight: 8},
+        ],
+        historyList: [
+          {label: '黑科技', time: '09:23'},
+          {label: '加湿器', time: '08:23'},
+          {label: '搞怪', time: '08:20'},
+          {label: '存钱罐', time: '08:10'},
+          {label: '无人机', time: '08:01'}
+        ],
       }
     },
     methods: {
@@ -75,7 +91,7 @@
         window.alert('you click the result item: ' + JSON.stringify(item))
       },
       getResult (val) {
-        this.results = val ? getResult(this.value) : []
+        this.results = val ? getResult(this.searchValue) : []
       },
       onSubmit () {
         this.$refs.homeSearch.setBlur()
@@ -135,11 +151,11 @@
       console.log('des')
       this.$store.dispatch('setDataEmpty')
     },
-    watch:{
-    	isSearch(newVal,oldVal){
-    		if(newVal){
+    watch: {
+      isSearch(newVal, oldVal){
+        if (newVal) {
           this.$refs.mescroll.deactivated();
-        }else{
+        } else {
           this.$refs.mescroll.activated();
         }
       }
