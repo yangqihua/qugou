@@ -45,7 +45,6 @@
       //创建Mescroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
       //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       let self = this;
-      console.log('upUse:',self.upUse)
       this.mescroll = new MeScroll('body', {
         down: {use: false},
         up: {

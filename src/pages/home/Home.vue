@@ -10,14 +10,13 @@
         <flexbox-item>
           <search @result-click="resultClick"
                   @on-change="getResult"
-                  :results="results"
                   v-model="value"
                   position="fixed"
                   auto-scroll-to-top
                   @on-focus="onFocus"
                   @on-cancel="onCancel"
                   @on-submit="onSubmit"
-                  placeholder="总有一款你不知道的">
+                  placeholder="大家都在搜：黑科技">
             <search-content></search-content>
           </search>
         </flexbox-item>
