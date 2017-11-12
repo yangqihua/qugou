@@ -96,7 +96,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../style/mixin.less";
+  @import "../../assets/less/mixin.less";
 
   #top_scroll {
     padding: 45px 0 52px 0;

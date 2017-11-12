@@ -4,7 +4,7 @@ import VueLazyload from 'vue-lazyload'
 import App from './components/App'
 import router from './router'
 import store from './store'
-import './style/index.less'
+import './assets/less/index.less'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'

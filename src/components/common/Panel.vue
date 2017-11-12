@@ -38,7 +38,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../style/mixin.less";
+  @import "../../assets/less/mixin.less";
 
   .panel_wapper {
     padding: 10px;

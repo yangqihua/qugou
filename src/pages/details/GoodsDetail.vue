@@ -108,7 +108,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../style/mixin.less";
+  @import "../../assets/less/mixin.less";
 
   .good_info {
     text-align: center;

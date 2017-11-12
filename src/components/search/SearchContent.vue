@@ -94,7 +94,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../style/mixin.less";
+  @import "../../assets/less/mixin.less";
 
   .search_content {
     font-size: 13px;

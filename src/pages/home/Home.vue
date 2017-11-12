@@ -175,7 +175,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../../style/mixin.less";
+  @import "../../assets/less/mixin.less";
 
   #index_scroll {
     padding: 0 0 52px 0;
