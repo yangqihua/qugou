@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import WorkDetail from '@/components/WorkDetail'
-import ArticleDetail from '@/components/ArticleDetail'
-
-
 import Frame from '../components/Frame'
 import Home from '../pages/home/Home.vue'
+import GoodsDetail from '../pages/details/GoodsDetail'
 import Recommend from '../pages/home/Recommend.vue'
 import Top from '../pages/home/Top.vue'
 import Me from '../pages/home/Me.vue'
@@ -43,10 +40,17 @@ export default new Router({
       ]
     },
 
+    // 搜索
     {
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    // 详情
+    {
+      path: '/goods/:id',
+      name: 'GoodsDetail',
+      component: GoodsDetail
     },
     {
       path: '*',
@@ -54,19 +58,6 @@ export default new Router({
     },
 
 
-
-    // 详情
-    {
-      path: '/work/:id',
-      name: 'WorkDetail',
-      component: WorkDetail
-    },
-
-    {
-      path: '/article/:id',
-      name: 'ArticleDetail',
-      component: ArticleDetail
-    },
 
 
 

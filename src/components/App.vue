@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import vNav from './components/Nav.vue'
+import vNav from './common/Nav.vue'
 
 export default {
   name: 'app',

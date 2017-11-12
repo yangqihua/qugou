@@ -52,7 +52,7 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import "../style/mixin.less";
+  @import "../../style/mixin.less";
 
   .nav {
     position: fixed;

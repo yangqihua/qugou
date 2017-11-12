@@ -30,6 +30,7 @@
     props: ['list'],
     methods: {
       goDetails(link) {
+      	link = '/goods/1'
         this.$router.push(link)
       }
     }

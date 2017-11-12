@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import {getViewportSize} from '../mixin/util'
+  import {getViewportSize} from '../../utils/util'
   import {Group, Cell} from 'vux'
   export default {
     components: {Group, Cell},
@@ -94,7 +94,7 @@
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../style/mixin.less";
+  @import "../../style/mixin.less";
 
   .search_content {
     font-size: 13px;

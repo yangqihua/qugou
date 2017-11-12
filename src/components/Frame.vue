@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import vNav from './Nav.vue'
+  import vNav from './common/Nav.vue'
 
   export default {
     name: 'frame',

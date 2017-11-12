@@ -53,14 +53,13 @@
 <script>
   //  import BScroll from 'better-scroll'
   import {XHeader, Swiper, SwiperItem, Previewer, TransferDom} from 'vux'
-  import {jsonp, $dom, workInfor, workShow, getUserInfoMin, showloadin, hideloadin} from '../mixin/util'
-  import {io_detail} from '../mixin/url'
-  import UserInfoMin from './UserInfoMin.vue'
+  import {jsonp, $dom, workInfor, workShow, getUserInfoMin, showloadin, hideloadin} from '../../utils/util'
+  import {io_detail} from '../../utils/url'
 
   export default {
-    name: 'workDetail',
+    name: 'goodsDetail',
     directives: {TransferDom},
-    components: {XHeader, Swiper, SwiperItem, Previewer, UserInfoMin},
+    components: {XHeader, Swiper, SwiperItem, Previewer},
     data () {
       return {
         info: '',
@@ -84,10 +83,6 @@
         },
         videoList: [
           {
-            'desc': '小猫如何玩转加湿器的',
-            'link': 'https://wsqncdn.miaopai.com/stream/DtgNKNaSdsn~df2NefBbu1kKv8eUI5FKBtS7iw___0_1509418344.mp4?ssig=bb454cd92a093dcb84f4efb1c928f158&time_stamp=1509547390598'
-          },
-          {
             'desc': '专业吐槽20年',
             'link': 'http://gslb.miaopai.com/stream/59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__.mp4?ssig=434174728ab2a1be6848c6e083f5e26a&time_stamp=1509550023250&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__'
           },
@@ -101,19 +96,19 @@
     },
     mounted() {
       showloadin()
-      jsonp(io_detail, {path: this.$route.path}).then(res => $dom(res.body)).then($ => {
-        this.info = workInfor($)
-        this.show = workShow($)
-        this.userinfo = getUserInfoMin($)
+//      jsonp(io_detail, {path: this.$route.path}).then(res => $dom(res.body)).then($ => {
+//        this.info = workInfor($)
+//        this.show = workShow($)
+//        this.userinfo = getUserInfoMin($)
         hideloadin()
-      })
+//      })
     },
 
   }
 </script>
 
 <style scoped lang="less" rel="stylesheet/less">
-  @import "../style/mixin.less";
+  @import "../../style/mixin.less";
 
   .good_info {
     text-align: center;

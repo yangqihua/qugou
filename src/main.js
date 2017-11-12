@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import FastClick from 'fastclick'
 import VueLazyload from 'vue-lazyload'
-import App from './App'
+import App from './components/App'
 import router from './router'
 import store from './store'
 import './style/index.less'

@@ -12,14 +12,14 @@ import {
   upBox,
   showloadin,
   hideloadin
-} from '../mixin/util'
+} from '../utils/util'
 
 import {
   io_base,
   io_home_list,
   io_works,
   io_articles
-} from '../mixin/url'
+} from '../utils/url'
 
 
 const state = {

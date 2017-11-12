@@ -53,7 +53,7 @@
   import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky} from 'vux'
   import Panel from '../../components/common/Panel'
   import Scroll from '../../components/mescroll/Scroll'
-  import SearchContent from '../../components/SearchContent'
+  import SearchContent from '../../components/search/SearchContent'
 
 
   export default {
@@ -148,7 +148,6 @@
       }
     },
     destroyed(){
-      console.log('des')
       this.$store.dispatch('setDataEmpty')
     },
     watch: {
