@@ -37,7 +37,7 @@
     },
     methods: {
       goDetails(link) {
-        this.$router.push(link)
+        this.$router.push("/goods/1")
       },
       upCallback: function (page) {
         let params = {
@@ -61,7 +61,6 @@
         return this.$store.state.articles_data
       }
     },
-
     created() {
     },
   }

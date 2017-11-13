@@ -23,8 +23,10 @@ import {
 
 
 const state = {
-  search_data: {list:[]},
-  base_data: {list:[]},
+  scrollTops: {},
+
+  search_data: {list: []},
+  base_data: {list: []},
   works_data: [],
   articles_data: []
 }
@@ -45,13 +47,21 @@ const mutations = {
   SET_EMPTY_DATA(state, payload) {
     state.base_data.list = [];
   },
+  SET_SCROLL_TOP(state, payload) {
+    for (let key in payload) {
+      state.scrollTops[key] = payload[key];
+    }
+  },
 }
 
 const actions = {
-  setDataEmpty({ commit, state }) {
+  setScrollTop({commit, state},param) {
+    commit('SET_SCROLL_TOP', param);
+  },
+  setDataEmpty({commit, state}) {
     commit('SET_EMPTY_DATA');
   },
-  getData({ commit }) {
+  getData({commit}) {
     // hideloadin();
     ajax(io_base).then(res => $dom(res.body)).then($ => {
       commit('GET_DATA', {
@@ -62,63 +72,63 @@ const actions = {
       hideloadin()
     })
   },
-  getListBy({ commit, state }, param={}) {
+  getListBy({commit, state}, param = {}) {
     let page = param.page;
     let scb = param.scb;
     let ecb = param.ecb;
-    ajax(io_home_list, { page: page }).then(res => $dom(res.body)).then($ => {
+    ajax(io_home_list, {page: page}).then(res => $dom(res.body)).then($ => {
       let newData = homelist($);
-      commit('GET_DATA', { list: state.base_data.list.concat(newData)})
-      scb&&scb(newData);
-    },err=>{
-      ecb&&ecb(err);
+      commit('GET_DATA', {list: state.base_data.list.concat(newData)})
+      scb && scb(newData);
+    }, err => {
+      ecb && ecb(err);
     })
   },
-  getSearchData({ commit, state }, param={}) {
+  getSearchData({commit, state}, param = {}) {
     let page = param.page;
     let scb = param.scb;
     let ecb = param.ecb;
-    ajax(io_home_list, { page: page }).then(res => $dom(res.body)).then($ => {
+    ajax(io_home_list, {page: page}).then(res => $dom(res.body)).then($ => {
       let newData = homelist($);
-      commit('GET_SEARCH_DATA', { list: state.search_data.list.concat(newData)})
-      scb&&scb(newData);
-    },err=>{
-      ecb&&ecb(err);
+      commit('GET_SEARCH_DATA', {list: state.search_data.list.concat(newData)})
+      scb && scb(newData);
+    }, err => {
+      ecb && ecb(err);
     })
   },
-  getWorks({ commit }, param = {}) {
+  getWorks({commit}, param = {}) {
     let page = param.page;
     let scb = param.scb;
     let ecb = param.ecb;
     // NProgress.set(0.4)
-    ajax(io_works, { page: page }).then(res => $dom(res.body)).then($ => {
+    ajax(io_works, {page: page}).then(res => $dom(res.body)).then($ => {
       // NProgress.done()
       let newData = homelist($);
-      console.log('newData:',newData);
+      console.log('newData:', newData);
       commit('GET_WORKS', newData)
-      scb&&scb(newData);
-    },err=>{
-      ecb&&ecb(err);
+      scb && scb(newData);
+    }, err => {
+      ecb && ecb(err);
     })
   },
-  getArticles({ commit }, param = {}) {
+  getArticles({commit}, param = {}) {
     let page = param.page;
     let scb = param.scb;
     let ecb = param.ecb;
     // NProgress.start()
-    ajax(io_articles, { page: page }).then(res => $dom(res.body)).then($ => {
+    ajax(io_articles, {page: page}).then(res => $dom(res.body)).then($ => {
       // NProgress.done()
-      let time = '11-0'+page
-      if(page==1){
+      let time = '11-0' + page
+      if (page == 1) {
         time = '本周'
-      }else if(page ==2){
+      } else if (page == 2) {
         time = '上周'
       }
-      let newData = {time:time,list:upBox($)}
+      let newData = {time: time, list: upBox($)}
       commit('GET_ARTICLES', newData)
-      scb&&scb(newData);
-    },err=>{
-      ecb&&ecb(err);
+      scb && scb(newData);
+    }, err => {
+      ecb && ecb(err);
     })
   }
 }

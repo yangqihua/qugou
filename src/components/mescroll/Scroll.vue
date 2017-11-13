@@ -35,17 +35,26 @@
         type: Boolean,
         default: true
       },
+      scrollId: {
+        type: String,
+        default: 'body'
+      },
+      scrollTop: {
+        type: Number,
+        default: 0
+      },
     },
     data() {
       return {
         mescroll: null,
+        scrollIds:{},
       }
     },
     mounted() {
       //创建Mescroll对象,down可以不用配置,因为内部已默认开启下拉刷新,重置列表数据为第一页
       //解析: 下拉回调默认调用mescroll.resetUpScroll(); 而resetUpScroll会将page.num=1,再执行up.callback,从而实现刷新列表数据为第一页;
       let self = this;
-      this.mescroll = new MeScroll('body', {
+      this.mescroll = new MeScroll(self.scrollId, {
         down: {use: false},
         up: {
         	use:self.upUse,
@@ -85,13 +94,21 @@
         this.mescroll && this.mescroll.endErr();
       },
       deactivated(){
-        this.mescroll.scrollTo(0, 0);
         this.mescroll && this.mescroll.deactivated();
       },
       activated(){
         if (!(this.mescroll && this.mescroll.beActivated)) {
           this.mescroll.activated();
         }
+      },
+      getScrollTop(){
+        if(this.mescroll){
+          return this.mescroll.getScrollTop();
+        }
+        return 0;
+      },
+      scrollTo(top,duration){
+        this.mescroll && this.mescroll.scrollTo(top,duration);
       },
       btnClick() {
         alert("点击了去逛逛按钮,请具体实现业务逻辑");
@@ -103,14 +120,22 @@
       }
     },
     destroyed(){
-      this.mescroll.scrollTo(0, 0);
       this.mescroll &&this.mescroll.destroy();
     },
     deactivated(){
       this.deactivated();
+      let warpId = this.warpId;
+      let scrollMap = {}
+      scrollMap[warpId] = this.mescroll.preScrollY;
+      this.$store.dispatch('setScrollTop', scrollMap)
     },
     activated(){
       this.activated();
+      let scrollTop = 0;
+      if(this.$store.state.scrollTops.hasOwnProperty(this.warpId)){
+        scrollTop = this.$store.state.scrollTops[this.warpId];
+      }
+    	this.scrollTo(scrollTop,0)
     }
   };
 </script>

@@ -2,7 +2,7 @@
 
   <div>
     <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="index_scroll"
-            id="index_scroll" :upUse="true">
+            id="index_scroll">
       <flexbox :gutter="0" class="home_header">
         <flexbox-item span="60">
           <img height="22" src="../../assets/logo-wenzi.png" style="margin: 6px 0 0 12px">
@@ -54,7 +54,8 @@
   import Panel from '../../components/common/Panel'
   import Scroll from '../../components/mescroll/Scroll'
   import SearchContent from '../../components/search/SearchContent'
-
+  import NProgress from 'nprogress'
+  import 'nprogress/nprogress.css'
 
   export default {
     components: {Scroll, SearchContent, Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky, Panel,},
@@ -146,9 +147,6 @@
 //          ]
 //        }
       }
-    },
-    destroyed(){
-      this.$store.dispatch('setDataEmpty')
     },
     watch: {
       isSearch(newVal, oldVal){

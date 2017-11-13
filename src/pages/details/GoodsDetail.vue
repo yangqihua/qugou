@@ -17,9 +17,9 @@
           <div class="good_info_share"><i class="icon iconfont icon-icon26"></i>990</div>
         </div>
         <div class="good_info_detail_desc">
-          这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，
-          这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，
-          这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述，这里是智能音箱的描述。
+          你遇到一下问题吗？$1,手机屏幕过小经常误操作$2,键盘太小，打字速度慢3,
+          开车打电话，不方便也不安全$它是随时随地的蓝牙音响；它是时尚享受的镭射键盘；
+          它是前所未有的鼠标功能；它可以一机多用接听电话！
         </div>
         <div class="good_info_video">
           <div v-for="item in videoList">
@@ -51,7 +51,6 @@
 </template>
 
 <script>
-  //  import BScroll from 'better-scroll'
   import {XHeader, Swiper, SwiperItem, Previewer, TransferDom} from 'vux'
   import {jsonp, $dom, workInfor, workShow, getUserInfoMin, showloadin, hideloadin} from '../../utils/util'
   import {io_detail} from '../../utils/url'
@@ -103,7 +102,6 @@
         hideloadin()
 //      })
     },
-
   }
 </script>
 

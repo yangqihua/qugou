@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <!--<transition name="move">-->
-      <!--<keep-alive :exclude="/.+Detail/">-->
+      <keep-alive :exclude="/.+Detail/">
         <router-view></router-view>
-      <!--</keep-alive>-->
+      </keep-alive>
     <!--</transition>-->
   </div>
 </template>
