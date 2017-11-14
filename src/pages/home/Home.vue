@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="index_scroll"
+    <scroll :upCallback="getData" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="index_scroll"
             id="index_scroll">
       <flexbox :gutter="0" class="home_header">
         <flexbox-item span="60">
@@ -27,11 +27,11 @@
         <div class="type_tabs">
           <sticky :check-sticky-support="false" ref="sticky" class="sticky">
             <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
-              <tab-item selected @on-item-click="onItemClick">精选</tab-item>
-              <tab-item @on-item-click="onItemClick">实用类</tab-item>
-              <tab-item @on-item-click="onItemClick">有趣类</tab-item>
-              <tab-item @on-item-click="onItemClick">冷门类</tab-item>
-              <tab-item @on-item-click="onItemClick">黑科技</tab-item>
+              <tab-item selected @on-item-click="onTabItemClick">精选</tab-item>
+              <tab-item @on-item-click="onTabItemClick">实用类</tab-item>
+              <tab-item @on-item-click="onTabItemClick">有趣类</tab-item>
+              <tab-item @on-item-click="onTabItemClick">冷门类</tab-item>
+              <tab-item @on-item-click="onTabItemClick">黑科技</tab-item>
             </tab>
           </sticky>
         </div>
@@ -42,7 +42,7 @@
                          :style="{background:'url('+img.image+') center center / cover no-repeat'}">
             </swiper-item>
           </swiper>
-          <panel :list="data.list"></panel>
+          <panel :list="activeList"></panel>
         </div>
       </div>
     </scroll>
@@ -50,12 +50,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {base_public_url} from '../../utils/url'
+  import ajax from '../../utils/ajax';
   import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky} from 'vux'
   import Panel from '../../components/common/Panel'
   import Scroll from '../../components/mescroll/Scroll'
   import SearchContent from '../../components/search/SearchContent'
-  import NProgress from 'nprogress'
-  import 'nprogress/nprogress.css'
 
   export default {
     components: {Scroll, SearchContent, Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky, Panel,},
@@ -81,9 +81,41 @@
           {label: '存钱罐', time: '08:10'},
           {label: '无人机', time: '08:01'}
         ],
+        activeList: [],
+        activeCategory: 0,
+        homeData: {
+          list0: [],
+          list1: [],
+          list2: [],
+          list3: [],
+          list4: [],
+        }
       }
     },
     methods: {
+      onTabItemClick (index) {
+        this.activeCategory = index;
+        this.activeList = [];
+        this.$refs.mescroll.resetUpScroll();
+//        this.$refs.mescroll.triggerUpScroll();
+//        console.log('on item click:', index)
+      },
+      getData(page){
+        let params = {
+          url: 'goods/homelist',
+          params: {page: page.num, limit: page.size, category: this.activeCategory},
+          scb: (data) => {
+            this.$refs.mescroll.endSuccess(data.length);
+            data.map((item) => item['home_url'] = base_public_url + item['home_url'])
+            this.activeList = this.activeList.concat(data)
+            console.log('this.activeList:', this.activeList)
+          },
+          ecb: (err) => {
+            this.$refs.mescroll.endErr();
+          }
+        }
+        ajax(params)
+      },
       setFocus () {
 //        this.$router.push('/search');
         this.$refs.homeSearch.setFocus()
@@ -106,9 +138,7 @@
         this.isSearch = false
 //        this.$router.replace('/');
       },
-      onItemClick (index) {
-        console.log('on item click:', index)
-      },
+
       upCallback: function (page) {
         let params = {
           page: page.num,
@@ -116,7 +146,6 @@
             this.$refs.mescroll.endSuccess(curPageData.length);
           },
           ecb: (err) => {
-            this.$vux.toast.show({text: err, type: 'warn'})
             this.$refs.mescroll.endErr();
           }
         };
@@ -147,6 +176,9 @@
 //          ]
 //        }
       }
+    },
+    created(){
+
     },
     watch: {
       isSearch(newVal, oldVal){

@@ -112,6 +112,9 @@
       },
       btnClick() {
         alert("点击了去逛逛按钮,请具体实现业务逻辑");
+      },
+      resetUpScroll(){
+        this.mescroll && this.mescroll.resetUpScroll();
       }
     },
     computed: {
