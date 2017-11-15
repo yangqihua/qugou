@@ -1,30 +1,26 @@
 <template>
-  <div class="work_detail">
+  <div class="goods_detail">
     <x-header class="header">趣购</x-header>
     <div class="content">
-      <previewer :list="swiperList" ref="previewer" :options="options"></previewer>
-      <swiper loop :aspect-ratio="400/900" dots-class="dots" :show-dots="true" dots-position="center">
-        <swiper-item v-for="(img, index) in swiperList" :key="index" @click.native="previewImage(index)">
-          <img :src="img.src" class="previewer-img">
+      <previewer :list="preview_imgs" ref="previewer" :options="options"></previewer>
+      <swiper loop :aspect-ratio="900/900" dots-class="dots" :show-dots="true" dots-position="center">
+        <swiper-item v-for="(img, index) in goodsDetails.img_urls" :key="index" @click.native="previewImage(index)">
+          <img :src="img.url" class="previewer-img">
         </swiper-item>
       </swiper>
       <div class="good_info">
-        <div class="good_info_title">高萌实用加湿器</div>
-        <div class="good_info_home_desc">这里是高萌实用加湿器，高萌实用加湿器描述，高萌实用加湿器描述，高萌实用加湿器描述。</div>
-        <div class="good_info_price">￥299</div>
+        <div class="good_info_title">{{goodsDetails.name}}</div>
+        <div class="good_info_home_desc">{{goodsDetails.goods_desc}}</div>
+        <div class="good_info_price">￥{{goodsDetails.price}}</div>
         <div class="good_info_msg">
-          <div class="good_info_like"><i class="icon iconfont icon-shouye112"></i>223</div>
-          <div class="good_info_share"><i class="icon iconfont icon-icon26"></i>990</div>
+          <div class="good_info_like"><i class="icon iconfont icon-shouye112"></i>{{goodsDetails.collection_num}}</div>
+          <div class="good_info_share"><i class="icon iconfont icon-icon26"></i>{{goodsDetails.share_num}}</div>
         </div>
-        <div class="good_info_detail_desc">
-          你遇到一下问题吗？$1,手机屏幕过小经常误操作$2,键盘太小，打字速度慢3,
-          开车打电话，不方便也不安全$它是随时随地的蓝牙音响；它是时尚享受的镭射键盘；
-          它是前所未有的鼠标功能；它可以一机多用接听电话！
-        </div>
+        <div class="good_info_detail_desc">{{goodsDetails.detail_desc}}</div>
         <div class="good_info_video">
-          <div v-for="item in videoList">
+          <div v-for="item in goodsDetails.video_urls">
             <div>{{item.desc}}</div>
-            <video style="width: 100%;background:#888" controls :src="item.link"></video>
+            <video style="width: 100%;background:#888" controls :src="item.url"></video>
           </div>
         </div>
       </div>
@@ -43,7 +39,9 @@
         </div>
       </div>
       <div class="footer_item" style="width: 55%;background:#fe2a43 ">
-        <div style="width: 100%;font-size: 18px;float: left;line-height: 50px;color:#fff">立即购买</div>
+        <div style="width: 100%;font-size: 18px;float: left;line-height: 50px;color:#fff" @click.stop.prevent="buy">
+          立即购买
+        </div>
       </div>
     </div>
 
@@ -51,6 +49,7 @@
 </template>
 
 <script>
+  import {base_public_url} from '../../utils/url'
   import {XHeader, Swiper, SwiperItem, Previewer, TransferDom} from 'vux'
   import {jsonp, $dom, workInfor, workShow, getUserInfoMin, showloadin, hideloadin} from '../../utils/util'
   import {io_detail} from '../../utils/url'
@@ -85,22 +84,38 @@
             'desc': '专业吐槽20年',
             'link': 'http://gslb.miaopai.com/stream/59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__.mp4?ssig=434174728ab2a1be6848c6e083f5e26a&time_stamp=1509550023250&cookie_id=&vend=1&os=3&partner=1&platform=2&cookie_id=&refer=miaopai&scid=59GHBucVUhQz0bgrhHdlvKh-5X2BipKUhWVjJw__'
           },
-        ]
+        ],
+        goodsDetails: {},
+        preview_imgs: [],
       }
     },
     methods: {
+      buy(){
+        location.href = this.goodsDetails['link']
+      },
       previewImage(index){
         this.$refs.previewer.show(index);
       }
     },
     mounted() {
       showloadin()
-//      jsonp(io_detail, {path: this.$route.path}).then(res => $dom(res.body)).then($ => {
-//        this.info = workInfor($)
-//        this.show = workShow($)
-//        this.userinfo = getUserInfoMin($)
-        hideloadin()
-//      })
+      let params = {
+        url: 'goods/details?goods_id=' + this.$route.params.id,
+        scb: (data) => {
+          hideloadin()
+          this.goodsDetails = data
+          this.goodsDetails.img_urls.map(item => {
+            item.url = base_public_url + item.url
+            let preview_img = {src:item.url};
+            this.preview_imgs.push(preview_img);
+          })
+//          console.log('this.goodsDetails:', this.goodsDetails)
+        },
+        ecb: (err) => {
+          hideloadin()
+        }
+      }
+      this.$ajax(params)
     },
   }
 </script>
@@ -168,20 +183,19 @@
     }
   }
 
-  .work_detail {
+  .goods_detail {
     .content {
-      position: absolute;
-      top: 46px;
-      bottom: 50px;
+      /*position: absolute;*/
+      padding-top: 46px;
+      padding-bottom: 50px;
       width: 100%;
-      left: 0;
       overflow-y: auto
     }
   }
 
   .footer {
     display: flex;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;

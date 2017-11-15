@@ -2,7 +2,7 @@
   <div class="panel_wapper">
     <div class="panel_detail" v-for="(item, index) in list" :key="index">
       <div class="panel_detail_wrapper">
-        <div class="panel_detail_image_wapper" @click.prevent.stop="goDetails(item.link)">
+        <div class="panel_detail_image_wapper" @click.prevent.stop="goDetails(item.id)">
           <img
             v-lazy="item.home_url"
             alt="预览图"
@@ -29,8 +29,8 @@
   export default {
     props: ['list'],
     methods: {
-      goDetails(link) {
-      	link = '/goods/1'
+      goDetails(id) {
+      	let link = '/goods/'+id
         this.$router.push(link)
       }
     }

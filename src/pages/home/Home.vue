@@ -51,7 +51,6 @@
 
 <script type="text/ecmascript-6">
   import {base_public_url} from '../../utils/url'
-  import ajax from '../../utils/ajax';
   import {Tab, TabItem, Flexbox, FlexboxItem, Search, Swiper, SwiperItem, Sticky} from 'vux'
   import Panel from '../../components/common/Panel'
   import Scroll from '../../components/mescroll/Scroll'
@@ -105,13 +104,12 @@
               }
             })
             this.activeList = this.activeList.concat(data)
-            console.log('this.activeList:', this.activeList)
           },
           ecb: (err) => {
             this.$refs.mescroll.endErr();
           }
         }
-        ajax(params)
+        this.$ajax(params)
       },
       setFocus () {
 //        this.$router.push('/search');
