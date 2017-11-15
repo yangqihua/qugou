@@ -29,9 +29,9 @@
             <tab :line-width="2" active-color="#fe2a43" defaultColor="#2b333b">
               <tab-item selected @on-item-click="onTabItemClick">精选</tab-item>
               <tab-item @on-item-click="onTabItemClick">实用类</tab-item>
-              <tab-item @on-item-click="onTabItemClick">有趣类</tab-item>
-              <tab-item @on-item-click="onTabItemClick">冷门类</tab-item>
               <tab-item @on-item-click="onTabItemClick">黑科技</tab-item>
+              <tab-item @on-item-click="onTabItemClick">有意思</tab-item>
+              <tab-item @on-item-click="onTabItemClick">萌萌哒</tab-item>
             </tab>
           </sticky>
         </div>
