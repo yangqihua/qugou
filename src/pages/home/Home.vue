@@ -37,7 +37,7 @@
         </div>
 
         <div>
-          <swiper loop auto :aspect-ratio="350/900" dots-class="dots" :show-dots="true" dots-position="right">
+          <swiper v-show="activeCategory==0" loop auto :aspect-ratio="350/900" dots-class="dots" :show-dots="true" dots-position="right">
             <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
                          :style="{background:'url('+img.image+') center center / cover no-repeat'}">
             </swiper-item>
@@ -83,13 +83,6 @@
         ],
         activeList: [],
         activeCategory: 0,
-        homeData: {
-          list0: [],
-          list1: [],
-          list2: [],
-          list3: [],
-          list4: [],
-        }
       }
     },
     methods: {
@@ -106,7 +99,11 @@
           params: {page: page.num, limit: page.size, category: this.activeCategory},
           scb: (data) => {
             this.$refs.mescroll.endSuccess(data.length);
-            data.map((item) => item['home_url'] = base_public_url + item['home_url'])
+            data.map((item) => {
+              if (item['home_url'].hasOwnProperty('url')) {
+                item['home_url'] = base_public_url + item['home_url']['url']
+              }
+            })
             this.activeList = this.activeList.concat(data)
             console.log('this.activeList:', this.activeList)
           },

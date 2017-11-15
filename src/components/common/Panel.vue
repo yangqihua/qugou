@@ -4,19 +4,19 @@
       <div class="panel_detail_wrapper">
         <div class="panel_detail_image_wapper" @click.prevent.stop="goDetails(item.link)">
           <img
-            v-lazy="item.image"
+            v-lazy="item.home_url"
             alt="预览图"
             class="image"
             width="100%">
         </div>
         <div class="panel_detail_info">
-          <div class="title ellipsis_text_1">{{item.title}}</div>
-          <div class="desc ellipsis_text_2">{{item.title}}</div>
+          <div class="title ellipsis_text_1">{{item.name}}</div>
+          <div class="desc ellipsis_text_2">{{item.desc}}</div>
           <div class="share">
-            <div class="price">￥{{item.reqi}}
+            <div class="price">￥{{item.price}}
             </div>
             <div class="collection">
-              <i class="iconfont icon-shouye112"></i>{{item.tuijian}}
+              <i class="iconfont icon-shouye112"></i>{{item.collection_num}}
             </div>
           </div>
         </div>
