@@ -53,7 +53,7 @@
         this.$store.dispatch('getArticles', params)
       },
       btnClick() {
-        alert("点击了去逛逛按钮");
+        this.$router.push("/");
       }
     },
     computed: {
