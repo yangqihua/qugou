@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroll :upCallback="getData" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="top_scroll"
+    <scroll :upCallback="getData" ref="mescroll" warpId="top_scroll"
             id="top_scroll">
       <x-header class="header" :left-options="{showBack: false}">
         {{title}}
@@ -59,11 +59,6 @@
           params: this.search,
           scb: (data) => {
             this.$refs.mescroll.endSuccess(data.length);
-//            data.forEach((item) => {
-//              if (item['data']['home_url'].hasOwnProperty('url')) {
-//                item['home_url']= base_public_url + item['home_url']['url']
-//              }
-//            })
             this.data = this.data.concat(data)
           },
           ecb: (err) => {
@@ -88,22 +83,6 @@
       goDetails(goods_id) {
         this.$router.push("/goods/"+goods_id)
       },
-      upCallback: function (page) {
-        let params = {
-          page: page.num,
-          scb: (curPageData) => {
-            this.$refs.mescroll.endSuccess(curPageData.length);
-          },
-          ecb: (err) => {
-            this.$vux.toast.show({text: err, type: 'warn'})
-            this.$refs.mescroll.endErr();
-          }
-        };
-        this.$store.dispatch('getWorks', params)
-      },
-      btnClick() {
-        alert("点击了去逛逛按钮");
-      }
     },
     computed: {
       ActionMenus(){
@@ -119,12 +98,6 @@
           allTop, weekTop
         ]
       },
-      content() {
-        return this.$store.state.works_data
-      }
-    },
-
-    created() {
     },
   }
 </script>
