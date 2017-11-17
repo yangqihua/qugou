@@ -104,12 +104,18 @@
         scb: (data) => {
           hideloadin()
           this.goodsDetails = data
-          this.goodsDetails.img_urls.map(item => {
-            item.url = base_public_url + item.url
-            let preview_img = {src:item.url};
-            this.preview_imgs.push(preview_img);
-          })
-//          console.log('this.goodsDetails:', this.goodsDetails)
+          if(this.goodsDetails.img_urls) {
+            this.goodsDetails.img_urls.map(item => {
+              item.url = base_public_url + item.url
+              let preview_img = {src: item.url};
+              this.preview_imgs.push(preview_img);
+            })
+          }
+          if(this.goodsDetails.video_urls){
+            this.goodsDetails.video_urls.map(item => {
+              item.url = base_public_url + item.url
+            })
+          }
         },
         ecb: (err) => {
           hideloadin()
