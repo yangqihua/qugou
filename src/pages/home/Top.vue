@@ -1,6 +1,6 @@
 <template>
   <div>
-    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="top_scroll"
+    <scroll :upCallback="getData" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="top_scroll"
             id="top_scroll">
       <x-header class="header" :left-options="{showBack: false}">
         {{title}}
@@ -11,16 +11,16 @@
       </actionsheet>
 
       <div class="top_list">
-        <div class="top_item" v-for="(item, index) in content" :key="index"
-             @click.prevent.stop="goDetails('work/ZMjQ3MjA5MzI=')">
+        <div class="top_item" v-for="(item, index) in data" :key="index"
+             @click.prevent.stop="goDetails(item.goods_id)">
 
-          <div class="top_item_img" :style="backgroundImg(item.image)"></div>
+          <div class="top_item_img" :style="backgroundImg(item.home_url.url)"></div>
 
           <div class="top_item_info">
-            <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
+            <h4 class="ellipsis_text_2 title">{{item.name}}</h4>
             <div class="sub_info">
-              <p class="top_item_info_price">￥{{item.reqi}}</p>
-              <p class="top_item_info_like"><i class="icon iconfont icon-shouye112"></i>{{item.tuijian}}</p>
+              <p class="top_item_info_price">￥{{item.price}}</p>
+              <p class="top_item_info_like"><i class="icon iconfont icon-shouye112"></i>{{item.collection_num}}</p>
             </div>
           </div>
         </div>
@@ -31,28 +31,62 @@
 </template>
 
 <script>
+  import {base_public_url} from '../../utils/url'
   import {XHeader, Actionsheet} from 'vux'
   import Scroll from '../../components/mescroll/Scroll'
   export default {
     components: {XHeader, Actionsheet, Scroll},
     data () {
       return {
+      	search:{
+      		category:1,
+          page:1,
+          limit:1,
+        },
+        data:[],
         title: '综合榜单',
         showAction: false,
         activeAction: '1',
       }
     },
     methods: {
+      getData(page){
+      	this.search.page = page.num
+      	this.search.limit = page.size
+      	this.search.category = this.activeAction
+        let params = {
+          url: 'top/toplist',
+          params: this.search,
+          scb: (data) => {
+            this.$refs.mescroll.endSuccess(data.length);
+//            data.forEach((item) => {
+//              if (item['data']['home_url'].hasOwnProperty('url')) {
+//                item['home_url']= base_public_url + item['home_url']['url']
+//              }
+//            })
+            this.data = this.data.concat(data)
+          },
+          ecb: (err) => {
+            this.$refs.mescroll.endErr();
+          }
+        }
+        this.$ajax(params)
+      },
       backgroundImg(img){
-        return {backgroundImage: 'url(' + img + ')'}
+        return {backgroundImage: 'url(' + base_public_url+img + ')'}
       },
       clickAction(menuKey, menuItem){
         let value = menuItem.value
+      	if(this.activeAction==value){
+      		return
+        }
         this.title = value == '1' ? '综合榜单' : '本周榜单'
-        this.activeAction = menuItem.value
+        this.activeAction = value
+        this.data = [];
+        this.$refs.mescroll.resetUpScroll();
       },
-      goDetails(link) {
-        this.$router.push("/goods/1")
+      goDetails(goods_id) {
+        this.$router.push("/goods/"+goods_id)
       },
       upCallback: function (page) {
         let params = {
