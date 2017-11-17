@@ -1,22 +1,22 @@
 <template>
   <div>
-    <scroll :upCallback="upCallback" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="recommend_scroll"
+    <scroll :upCallback="getData" :emptyDataBtnClick="btnClick" ref="mescroll" warpId="recommend_scroll"
             id="recommend_scroll">
       <x-header class="header" :left-options="{showBack: false}">每周推荐</x-header>
       <div class="recommend_list">
-        <template v-for="(itemData, dataIndex) in content">
-          <div class="recommend_time">{{itemData.time}}</div>
+        <template v-for="(itemData, dataIndex) in data">
+          <div class="recommend_time">{{itemData.label}}</div>
           <div class="recommend_data_item">
-            <div class="recommend_item vux-1px-b" v-for="(item, itemIndex) in itemData.list" :key="itemIndex"
+            <div class="recommend_item vux-1px-b" v-for="(item, itemIndex) in itemData.data" :key="itemIndex"
                  @click.prevent.stop="goDetails('work/ZMjQ3MjA5MzI=')">
 
               <div class="recommend_layer_info">
-                <h4 class="ellipsis_text_2 title">{{item.title}}</h4>
-                <p class="ellipsis_text_3 desc">{{item.desc}}</p>
+                <h4 class="ellipsis_text_2 title">{{item.name}}</h4>
+                <p class="ellipsis_text_3 desc">{{item.recommend_desc}}</p>
               </div>
 
               <div class="recommend_layer_img">
-                <img v-lazy="item.image" alt="缩略图" class="image">
+                <img v-lazy="base_public_url+item.home_url.url" alt="缩略图" class="image">
               </div>
             </div>
           </div>
@@ -27,15 +27,37 @@
 </template>
 
 <script>
+  import {base_public_url} from '../../utils/url'
   import {XHeader} from 'vux'
   import Scroll from '../../components/mescroll/Scroll'
   export default {
     components: {XHeader, Scroll},
     data () {
       return {
+        data: [],
+        base_public_url:base_public_url,
       }
     },
     methods: {
+      getData(page){
+        let params = {
+          url: 'recommend/weeklist',
+          params: {week: page.num},
+          scb: (data) => {
+            this.$refs.mescroll.endSuccess(data.data.length);
+//            data.forEach((item) => {
+//              if (item['data']['home_url'].hasOwnProperty('url')) {
+//                item['home_url']= base_public_url + item['home_url']['url']
+//              }
+//            })
+            this.data = this.data.concat(data)
+          },
+          ecb: (err) => {
+            this.$refs.mescroll.endErr();
+          }
+        }
+        this.$ajax(params)
+      },
       goDetails(link) {
         this.$router.push("/goods/1")
       },
@@ -74,7 +96,7 @@
   }
 
   .recommend_list {
-    .recommend_time{
+    .recommend_time {
       border-radius: 4px;
       margin: 12px auto 2px auto;
       width: 60px;
