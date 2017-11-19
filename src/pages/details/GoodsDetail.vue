@@ -28,12 +28,12 @@
 
     <div class="footer">
       <div style="width: 45%;display: flex;">
-        <div class="footer_item" style="padding-top: 5px;width: 50%;padding-left: 16px;">
+        <div class="footer_item" @click.prevent.stop="collect" style="padding-top: 5px;width: 50%;padding-left: 16px;">
           <i class="icon iconfont icon-shouye112"></i>
           <div style="margin-top: -3px;">喜欢</div>
 
         </div>
-        <div class="footer_item" style="padding-top: 5px;width: 50%;padding-right: 16px;">
+        <div class="footer_item" @click.prevent.stop="share" style="padding-top: 5px;width: 50%;padding-right: 16px;">
           <i class="icon iconfont icon-icon26"></i>
           <div style="margin-top: -3px;">分享</div>
         </div>
@@ -90,6 +90,12 @@
       }
     },
     methods: {
+    	collect(){
+        this.$vux.toast.text('开发中...');
+      },
+      share(){
+        this.$vux.toast.text('开发中...');
+      },
       buy(){
         location.href = this.goodsDetails['link']
       },

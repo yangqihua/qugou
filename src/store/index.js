@@ -59,7 +59,7 @@ const mutations = {
     payload.forEach(item => {
       let ad = {
         goods_id: item.goods_id,
-        url: 'javascript:',
+        url: '/goods/'+item.goods_id,
         img: item.img_url,
         // fallbackImg: 'xx.jpg',
         title: item.desc

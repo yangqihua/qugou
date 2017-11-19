@@ -14,6 +14,8 @@ Vue.use(VueLazyload);
 FastClick.attach(document.body);
 
 Vue.prototype.$ajax = ajax
+import  { ToastPlugin } from 'vux'
+Vue.use(ToastPlugin)
 
 // router.beforeEach((to, from, next) => {
 //   NProgress.start();

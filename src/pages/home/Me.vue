@@ -22,7 +22,8 @@
     },
     methods:{
       click(cell){
-    		alert('正在开发中。。。你点击了'+cell)
+//    		alert('正在开发中。。。你点击了'+cell)
+        this.$vux.toast.text('开发中...');
       }
     },
     mounted() {
