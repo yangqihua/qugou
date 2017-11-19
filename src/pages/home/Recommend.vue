@@ -8,7 +8,7 @@
           <div class="recommend_time">{{itemData.label}}</div>
           <div class="recommend_data_item">
             <div class="recommend_item vux-1px-b" v-for="(item, itemIndex) in itemData.data" :key="itemIndex"
-                 @click.prevent.stop="goDetails('work/ZMjQ3MjA5MzI=')">
+                 @click.prevent.stop="goDetails(item.goods_id)">
 
               <div class="recommend_layer_info">
                 <h4 class="ellipsis_text_2 title">{{item.name}}</h4>
@@ -35,7 +35,7 @@
     data () {
       return {
         data: [],
-        base_public_url:base_public_url,
+        base_public_url: base_public_url,
       }
     },
     methods: {
@@ -45,12 +45,9 @@
           params: {week: page.num},
           scb: (data) => {
             this.$refs.mescroll.endSuccess(data.data.length);
-//            data.forEach((item) => {
-//              if (item['data']['home_url'].hasOwnProperty('url')) {
-//                item['home_url']= base_public_url + item['home_url']['url']
-//              }
-//            })
-            this.data = this.data.concat(data)
+            if (data.data.length > 0) {
+              this.data = this.data.concat(data)
+            }
           },
           ecb: (err) => {
             this.$refs.mescroll.endErr();
@@ -58,8 +55,8 @@
         }
         this.$ajax(params)
       },
-      goDetails(link) {
-        this.$router.push("/goods/1")
+      goDetails(goods_id) {
+        this.$router.push("/goods/"+goods_id)
       },
       upCallback: function (page) {
         let params = {
