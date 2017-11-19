@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import NProgress from 'NProgress'
 import 'NProgress/nprogress.css'
 Vue.use(Vuex)
+import http from '../utils/ajax'
 
 import {
   jsonp as ajax,
@@ -24,6 +25,7 @@ import {
 
 const state = {
   scrollTops: {},
+  ads: [],
 
   search_data: {list: []},
   base_data: {list: []},
@@ -52,10 +54,36 @@ const mutations = {
       state.scrollTops[key] = payload[key];
     }
   },
+
+  SET_ADS(state, payload) {
+    payload.forEach(item => {
+      let ad = {
+        goods_id: item.goods_id,
+        url: 'javascript:',
+        img: item.img_url,
+        // fallbackImg: 'xx.jpg',
+        title: item.desc
+      }
+      state.ads.push(ad)
+    })
+  },
 }
 
 const actions = {
-  setScrollTop({commit, state},param) {
+  getAds({commit, state}){
+    let params = {
+      url: 'ads/homeads',
+      scb: (data) => {
+        hideloadin()
+        commit('SET_ADS', data)
+      },
+      ecb: (err) => {
+        hideloadin()
+      }
+    }
+    http(params);
+  },
+  setScrollTop({commit, state}, param) {
     commit('SET_SCROLL_TOP', param);
   },
   setDataEmpty({commit, state}) {

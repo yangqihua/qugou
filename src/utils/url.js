@@ -1,5 +1,5 @@
-const base_url = "http://192.168.1.104/qugou/"
-// const base_url = "http://yangqihua.com/qugou/"
+// const base_url = "http://192.168.1.104/qugou/"
+const base_url = "http://yangqihua.com/qugou/"
 export let base_api_url= base_url+'public/index.php/api/'
 export let base_public_url= 'http://ozg6xzz9f.bkt.clouddn.com/'
 

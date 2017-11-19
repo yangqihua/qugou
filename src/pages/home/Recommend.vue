@@ -12,7 +12,7 @@
 
               <div class="recommend_layer_info">
                 <h4 class="ellipsis_text_2 title">{{item.name}}</h4>
-                <p class="ellipsis_text_3 desc">{{item.recommend_desc}}</p>
+                <p class="ellipsis_text_3 desc">{{item.goods_desc}}</p>
               </div>
 
               <div class="recommend_layer_img">

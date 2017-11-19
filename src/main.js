@@ -29,4 +29,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app-box')
 
-store.dispatch('getData')
+store.dispatch('getAds')

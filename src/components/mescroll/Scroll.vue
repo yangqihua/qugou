@@ -111,7 +111,8 @@
         this.mescroll && this.mescroll.scrollTo(top,duration);
       },
       btnClick() {
-        alert("点击了去逛逛按钮,请具体实现业务逻辑");
+//        alert("点击了去逛逛按钮,请具体实现业务逻辑");
+        this.$router.push("/");
       },
       resetUpScroll(){
         this.mescroll && this.mescroll.resetUpScroll();

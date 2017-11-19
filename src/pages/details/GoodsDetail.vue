@@ -16,7 +16,7 @@
           <div class="good_info_like"><i class="icon iconfont icon-shouye112"></i>{{goodsDetails.collection_num}}</div>
           <div class="good_info_share"><i class="icon iconfont icon-icon26"></i>{{goodsDetails.share_num}}</div>
         </div>
-        <div class="good_info_detail_desc">{{goodsDetails.detail_desc}}</div>
+        <div class="good_info_detail_desc" v-for="(item,index) in goodsDetails.detail_desc_array">{{item}}</div>
         <div class="good_info_video">
           <div v-for="item in goodsDetails.video_urls">
             <div>{{item.desc}}</div>

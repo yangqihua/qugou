@@ -37,10 +37,10 @@
         </div>
 
         <div>
-          <swiper v-show="activeCategory==0" loop auto :aspect-ratio="350/900" dots-class="dots" :show-dots="true" dots-position="right">
-            <swiper-item class="black" v-for="(img, index) in data.showbox" :key="index"
-                         :style="{background:'url('+img.image+') center center / cover no-repeat'}">
-            </swiper-item>
+          <swiper v-show="activeCategory==0" :list="ads" loop auto :aspect-ratio="300/500" dots-class="dots" :show-dots="true" dots-position="right">
+            <!--<swiper-item class="black" v-for="(img, index) in ads" :key="index"-->
+                         <!--:style="{background:'url('+img.img_url+') center center / cover no-repeat'}">-->
+            <!--</swiper-item>-->
           </swiper>
           <panel :list="activeList"></panel>
         </div>
@@ -136,8 +136,12 @@
       }
     },
     computed: {
-      data() {
-        return this.$store.state.base_data
+      ads() {
+      	let ads = this.$store.state.ads;
+        ads.map(item=>{
+        	item.img = base_public_url+item.img;
+        })
+        return ads
       }
     },
     created(){
