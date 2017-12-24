@@ -30,7 +30,7 @@
               <tab-item selected @on-item-click="onTabItemClick">精选</tab-item>
               <tab-item @on-item-click="onTabItemClick">实用类</tab-item>
               <tab-item @on-item-click="onTabItemClick">黑科技</tab-item>
-              <tab-item @on-item-click="onTabItemClick">有意思</tab-item>
+              <tab-item @on-item-click="onTabItemClick">美食区</tab-item>
               <tab-item @on-item-click="onTabItemClick">萌萌哒</tab-item>
             </tab>
           </sticky>
